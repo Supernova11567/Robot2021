@@ -36,18 +36,10 @@ public class Supernova11567Main extends OpMode {
     private double leftBrake = 0;
 
     private double wheelDiameter = 10;  //the value is template...
-    private double yDistanceBetweenWheels = 5;  //the value is template...
-    private double xDistanceBetweenWheels = 10;  //the value is template...
-    private double angleBetweenWheels = Math.atan(yDistanceBetweenWheels / xDistanceBetweenWheels);
-    private double wheelsRotationDiameter = yDistanceBetweenWheels / Math.sin(angleBetweenWheels);  //the value is template...
 
     private double ticksPerRotation = 1000;  //the value is template...
-    private double ticksPerinch = ticksPerRotation / (wheelDiameter * Math.PI);
-    private double ticksPerAngle = ((wheelsRotationDiameter * Math.PI) / 360) * ticksPerinch;
+    private double ticksPerInch = ticksPerRotation / (wheelDiameter * Math.PI);
 
-    //for movement functions
-    private double kp = 0.1;
-    private double errorRange = 25;
 
     //for display
     private double speedPercentages = (speed / 1) * 100;  //the percentages depend the maximum speed(1)
@@ -178,10 +170,10 @@ public class Supernova11567Main extends OpMode {
             telemetry.update();
         }
 
-        double w0CalculatedWay = Math.abs(w0.getCurrentPosition() - w0PositionBeforeCalculate) / ticksPerinch * 2.54 / 100;
-        double w1CalculatedWay = Math.abs(w1.getCurrentPosition() - w1PositionBeforeCalculate) / ticksPerinch * 2.54 / 100;
-        double w2CalculatedWay = Math.abs(w2.getCurrentPosition() - w2PositionBeforeCalculate) / ticksPerinch * 2.54 / 100;
-        double w3CalculatedWay = Math.abs(w3.getCurrentPosition() - w3PositionBeforeCalculate) / ticksPerinch * 2.54 / 100;
+        double w0CalculatedWay = Math.abs(w0.getCurrentPosition() - w0PositionBeforeCalculate) / ticksPerInch * 2.54 / 100;
+        double w1CalculatedWay = Math.abs(w1.getCurrentPosition() - w1PositionBeforeCalculate) / ticksPerInch * 2.54 / 100;
+        double w2CalculatedWay = Math.abs(w2.getCurrentPosition() - w2PositionBeforeCalculate) / ticksPerInch * 2.54 / 100;
+        double w3CalculatedWay = Math.abs(w3.getCurrentPosition() - w3PositionBeforeCalculate) / ticksPerInch * 2.54 / 100;
 
         double motorsAverageWay = (w0CalculatedWay + w1CalculatedWay + w2CalculatedWay + w3CalculatedWay) / 4;
 
