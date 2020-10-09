@@ -1,16 +1,15 @@
 package org.firstinspires.ftc.teamcode;
 
-import android.os.Build;
-
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name="MecanumWheelsTank", group="supernova11567")
+@TeleOp(name="Supernova11567Main", group="supernova11567")
 
-public class MecanumWheelsTank extends OpMode {
+public class Supernova11567Main extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor w0 = null;
     private DcMotor w1 = null;
@@ -82,6 +81,11 @@ public class MecanumWheelsTank extends OpMode {
         w1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         w2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         w3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        w0.setDirection(DcMotorSimple.Direction.FORWARD);
+        w1.setDirection(DcMotorSimple.Direction.FORWARD);
+        w2.setDirection(DcMotorSimple.Direction.FORWARD);
+        w3.setDirection(DcMotorSimple.Direction.FORWARD);
     }
 
 
