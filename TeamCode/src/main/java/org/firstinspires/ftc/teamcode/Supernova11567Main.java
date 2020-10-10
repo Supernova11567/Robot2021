@@ -33,6 +33,7 @@ public class Supernova11567Main extends OpMode {
 
     @Override
     public void init() {
+        runtime.reset();
         DcMotor w0 = hardwareMap.get(DcMotor.class, "motor_0");
         DcMotor w1 = hardwareMap.get(DcMotor.class, "motor_1");
         DcMotor w2 = hardwareMap.get(DcMotor.class, "motor_2");
