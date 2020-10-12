@@ -14,8 +14,8 @@ public class PID {
     }
 
     //sets the target of the pid
-    public void setTarget(double in) {
-        this.target = in;
+    public void setTarget(double target) {
+        this.target = target;
     }
 
     public double OutputForce(double input, double deltaTime) {
@@ -26,8 +26,8 @@ public class PID {
         integral += error * deltaTime;
         double i = pid.i * integral;
 
-        double delta_e = error - lastError;
-        double derivative = delta_e/deltaTime;
+        double delta_e = lastError - error;
+        double derivative = delta_e / deltaTime;
         double d = pid.d * derivative;
 
         double force = p + i + d;

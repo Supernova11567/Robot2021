@@ -10,7 +10,7 @@ public class ShootDisc extends OpMode {
 
     private Shooter shooter;  //creates new shooter object
 
-    private PID pid = new PID(Constants.K_P, Constants.K_I, Constants.K_D); //PID constants
+    private PID pid = new PID(Constants.Shooter.K_P, Constants.Shooter.K_I, Constants.Shooter.K_D); //PID constants
 
 
     public ShootDisc(double distance, double height, Shooter shooter) {
