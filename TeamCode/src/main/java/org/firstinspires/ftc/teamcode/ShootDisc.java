@@ -1,7 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
+@TeleOp(name="Basic: Iterative OpMode", group="Iterative Opmode")
 
 public class ShootDisc extends OpMode {
 
