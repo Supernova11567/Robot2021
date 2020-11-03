@@ -59,9 +59,9 @@ public class Supernova11567Main extends OpMode {
         w3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         w0.setDirection(DcMotorSimple.Direction.FORWARD);
-        w1.setDirection(DcMotorSimple.Direction.FORWARD);
+        w1.setDirection(DcMotorSimple.Direction.REVERSE);
         w2.setDirection(DcMotorSimple.Direction.FORWARD);
-        w3.setDirection(DcMotorSimple.Direction.FORWARD);
+        w3.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
 
@@ -75,9 +75,9 @@ public class Supernova11567Main extends OpMode {
 
         //final move
         w0.setPower((-gamepad1.right_stick_y - gamepad1.right_stick_x) * rightBrake);
-        w1.setPower((gamepad1.left_stick_y - gamepad1.left_stick_x) * leftBrake);
+        w1.setPower(-(gamepad1.left_stick_y - gamepad1.left_stick_x) * leftBrake);
         w2.setPower((-gamepad1.right_stick_y + gamepad1.right_stick_x) * rightBrake);
-        w3.setPower((gamepad1.left_stick_y + gamepad1.left_stick_x) * leftBrake);
+        w3.setPower(-(gamepad1.left_stick_y + gamepad1.left_stick_x) * leftBrake);
 
 
         //display for drivers
