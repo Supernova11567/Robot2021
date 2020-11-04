@@ -11,7 +11,7 @@ public class Supernova11567Main extends OpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
 
-    RobotMotorsSetup RobotMotorsSetup = new RobotMotorsSetup();
+    private RobotMotorsSetup RobotMotorsSetup = new RobotMotorsSetup();
 
     private double rightBrake = 0;
     private double leftBrake = 0;
