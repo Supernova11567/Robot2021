@@ -31,7 +31,9 @@ public class Supernova11567Main extends OpMode {
     @Override
     public void init() {
         runtime.reset();
+
         RobotMotorsSetup.init();
+        WheelsSystem.init();
 
     }
 
