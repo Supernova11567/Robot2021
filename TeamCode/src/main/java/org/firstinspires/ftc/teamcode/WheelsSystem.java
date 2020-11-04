@@ -39,7 +39,7 @@ public class WheelsSystem {
         rightBrake = -gamepad1.right_trigger + 1;
         leftBrake = -gamepad1.left_trigger + 1;
 
-        RobotMotorsSetup.moveWheelsByMecanum(rightBrake, leftBrake);
+        RobotMotorsSetup.moveWheelMecanumByJoysticks(rightBrake, leftBrake);
     }
 
 }
