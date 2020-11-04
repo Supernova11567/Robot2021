@@ -26,7 +26,7 @@ public class IntakeSystem {
 
     public void loop() {
 
-        
+
     }
 
 }
