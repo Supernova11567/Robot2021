@@ -2,19 +2,16 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name = "Supernova11567Main", group = "supernova11567")
 
 public class Supernova11567Main extends OpMode {
+
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor w0 = null;
-    private DcMotor w1 = null;
-    private DcMotor w2 = null;
-    private DcMotor w3 = null;
+
+    private RobotMotorsSetup RobotMotorsSetup = new RobotMotorsSetup();
 
     private double rightBrake = 0;
     private double leftBrake = 0;
@@ -23,7 +20,6 @@ public class Supernova11567Main extends OpMode {
 
     private double ticksPerRotation = 1000;  //the value is template...
     private double ticksPerInch = ticksPerRotation / (wheelDiameter * Math.PI);
-
 
     //for display
     private double rightBrakePercentages = (gamepad1.right_trigger / 1) * 100;  //the percentages depend the maximum trigger value(1)
@@ -34,10 +30,8 @@ public class Supernova11567Main extends OpMode {
     @Override
     public void init() {
         runtime.reset();
-        DcMotor w0 = hardwareMap.get(DcMotor.class, "motor_0");
-        DcMotor w1 = hardwareMap.get(DcMotor.class, "motor_1");
-        DcMotor w2 = hardwareMap.get(DcMotor.class, "motor_2");
-        DcMotor w3 = hardwareMap.get(DcMotor.class, "motor_3");
+        RobotMotorsSetup.init(hardwareMap);
+
     }
 
 
@@ -48,20 +42,7 @@ public class Supernova11567Main extends OpMode {
 
     @Override
     public void start() {
-        w0.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        w1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        w2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        w3.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        w0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        w1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        w2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        w3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        w0.setDirection(DcMotorSimple.Direction.FORWARD);
-        w1.setDirection(DcMotorSimple.Direction.REVERSE);
-        w2.setDirection(DcMotorSimple.Direction.FORWARD);
-        w3.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
 
@@ -74,11 +55,10 @@ public class Supernova11567Main extends OpMode {
 
 
         //final move
-        w0.setPower((-gamepad1.right_stick_y - gamepad1.right_stick_x) * rightBrake);
-        w1.setPower(-(gamepad1.left_stick_y - gamepad1.left_stick_x) * leftBrake);
-        w2.setPower((-gamepad1.right_stick_y + gamepad1.right_stick_x) * rightBrake);
-        w3.setPower(-(gamepad1.left_stick_y + gamepad1.left_stick_x) * leftBrake);
-
+        RobotMotorsSetup.w0.setPower((-gamepad1.right_stick_y - gamepad1.right_stick_x) * rightBrake);
+        RobotMotorsSetup.w1.setPower(-(gamepad1.left_stick_y - gamepad1.left_stick_x) * leftBrake);
+        RobotMotorsSetup.w2.setPower((-gamepad1.right_stick_y + gamepad1.right_stick_x) * rightBrake);
+        RobotMotorsSetup.w3.setPower(-(gamepad1.left_stick_y + gamepad1.left_stick_x) * leftBrake);
 
         //display for drivers
         MPS = MPS();
@@ -98,10 +78,10 @@ public class Supernova11567Main extends OpMode {
 
 
     public double MPS() {
-        double w0PositionBeforeCalculate = w0.getCurrentPosition();
-        double w1PositionBeforeCalculate = w1.getCurrentPosition();
-        double w2PositionBeforeCalculate = w2.getCurrentPosition();
-        double w3PositionBeforeCalculate = w3.getCurrentPosition();
+        double w0PositionBeforeCalculate = RobotMotorsSetup.w0.getCurrentPosition();
+        double w1PositionBeforeCalculate = RobotMotorsSetup.w1.getCurrentPosition();
+        double w2PositionBeforeCalculate = RobotMotorsSetup.w2.getCurrentPosition();
+        double w3PositionBeforeCalculate = RobotMotorsSetup.w3.getCurrentPosition();
 
         double runTimeStart = getRuntime();
 
@@ -110,10 +90,10 @@ public class Supernova11567Main extends OpMode {
             telemetry.update();
         }
 
-        double w0CalculatedWay = Math.abs(w0.getCurrentPosition() - w0PositionBeforeCalculate) / ticksPerInch * 2.54 / 100;
-        double w1CalculatedWay = Math.abs(w1.getCurrentPosition() - w1PositionBeforeCalculate) / ticksPerInch * 2.54 / 100;
-        double w2CalculatedWay = Math.abs(w2.getCurrentPosition() - w2PositionBeforeCalculate) / ticksPerInch * 2.54 / 100;
-        double w3CalculatedWay = Math.abs(w3.getCurrentPosition() - w3PositionBeforeCalculate) / ticksPerInch * 2.54 / 100;
+        double w0CalculatedWay = Math.abs(RobotMotorsSetup.w0.getCurrentPosition() - w0PositionBeforeCalculate) / ticksPerInch * 2.54 / 100;
+        double w1CalculatedWay = Math.abs(RobotMotorsSetup.w1.getCurrentPosition() - w1PositionBeforeCalculate) / ticksPerInch * 2.54 / 100;
+        double w2CalculatedWay = Math.abs(RobotMotorsSetup.w2.getCurrentPosition() - w2PositionBeforeCalculate) / ticksPerInch * 2.54 / 100;
+        double w3CalculatedWay = Math.abs(RobotMotorsSetup.w3.getCurrentPosition() - w3PositionBeforeCalculate) / ticksPerInch * 2.54 / 100;
 
         double motorsAverageWay = (w0CalculatedWay + w1CalculatedWay + w2CalculatedWay + w3CalculatedWay) / 4;
 
