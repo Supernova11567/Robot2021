@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -13,7 +12,7 @@ public class Supernova11567Main extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
 
     private RobotMotorsSetup RobotMotorsSetup = new RobotMotorsSetup(hardwareMap);
-    private Wheels WheelsSystem = new Wheels(hardwareMap, gamepad1, gamepad2);
+    private org.firstinspires.ftc.teamcode.WheelsSystem WheelsSystem = new WheelsSystem(hardwareMap, gamepad1, gamepad2);
 
     private double rightBrake = 0;
     private double leftBrake = 0;

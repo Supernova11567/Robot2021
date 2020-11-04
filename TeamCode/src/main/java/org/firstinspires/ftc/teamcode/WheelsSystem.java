@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-public class Wheels
+public class WheelsSystem
 {
 
     /* local OpMode members. */
@@ -15,7 +15,7 @@ public class Wheels
     private ElapsedTime period = new ElapsedTime();
 
     /* Constructor */
-    public Wheels(HardwareMap hwMap, Gamepad gamepad1, Gamepad gamepad2){
+    public WheelsSystem(HardwareMap hwMap, Gamepad gamepad1, Gamepad gamepad2){
         this.HardwareMap = hwMap;
         this.gamepad1 = gamepad1;
         this.gamepad2 = gamepad2;
