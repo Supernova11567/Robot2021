@@ -16,11 +16,15 @@ public class RobotMotorsSetup
 
     /* local OpMode members. */
     HardwareMap HardwareMap = null;
+    private Gamepad gamepad1 = null;
+    private Gamepad gamepad2 = null;
     private ElapsedTime period = new ElapsedTime();
 
     /* Constructor */
-    public RobotMotorsSetup(HardwareMap hwMap){
+    public RobotMotorsSetup(HardwareMap hwMap, Gamepad gamepad1, Gamepad gamepad2){
         HardwareMap = hwMap;
+        this.gamepad1 = gamepad1;
+        this.gamepad2 = gamepad2;
     }
 
     /* Initialize standard Hardware interfaces */
@@ -45,8 +49,6 @@ public class RobotMotorsSetup
         w2.setPower(0);
         w3.setPower(0);
 
-        // Set all motors to run without encoders.
-        // May want to use RUN_USING_ENCODERS if encoders are installed.
         w0.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         w1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         w2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -59,5 +61,15 @@ public class RobotMotorsSetup
 
     }
 
+    public void loop() {
+
+    }
+
+    public void moveWheelsByMecanum (double rightBrake, double leftBrake) {
+        w0.setPower((-gamepad1.right_stick_y - gamepad1.right_stick_x) * rightBrake);
+        w1.setPower(-(gamepad1.left_stick_y - gamepad1.left_stick_x) * leftBrake);
+        w2.setPower((-gamepad1.right_stick_y + gamepad1.right_stick_x) * rightBrake);
+        w3.setPower(-(gamepad1.left_stick_y + gamepad1.left_stick_x) * leftBrake);
+    }
 }
 
