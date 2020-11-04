@@ -13,6 +13,7 @@ public class Supernova11567Main extends OpMode {
 
     private RobotMotorsSetup RobotMotorsSetup = new RobotMotorsSetup(hardwareMap, gamepad1, gamepad2);
     private org.firstinspires.ftc.teamcode.WheelsSystem WheelsSystem = new WheelsSystem(RobotMotorsSetup, gamepad1, gamepad2);
+    private IntakeSystem IntakeSystem = new IntakeSystem(RobotMotorsSetup, gamepad1, gamepad2);
 
     //for display
     private double rightBrakePercentages = (gamepad1.right_trigger / 1) * 100;  //the percentages depend the maximum trigger value(1)
@@ -25,6 +26,7 @@ public class Supernova11567Main extends OpMode {
 
         RobotMotorsSetup.init();
         WheelsSystem.init();
+        IntakeSystem.init();
 
     }
 
@@ -45,6 +47,7 @@ public class Supernova11567Main extends OpMode {
 
         RobotMotorsSetup.loop();
         WheelsSystem.loop();
+        IntakeSystem.loop();
 
         //display for drivers
         rightBrakePercentages = (gamepad1.right_trigger / 1) * 100;
