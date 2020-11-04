@@ -71,7 +71,7 @@ public class RobotMotorsSetup {
 
     }
 
-    public void moveWheelsByMecanum(double rightBrake, double leftBrake) {
+    public void moveWheelMecanumByJoysticks(double rightBrake, double leftBrake) {
         w0.setPower((-gamepad1.right_stick_y - gamepad1.right_stick_x) * rightBrake);
         w1.setPower(-(gamepad1.left_stick_y - gamepad1.left_stick_x) * leftBrake);
         w2.setPower((-gamepad1.right_stick_y + gamepad1.right_stick_x) * rightBrake);
