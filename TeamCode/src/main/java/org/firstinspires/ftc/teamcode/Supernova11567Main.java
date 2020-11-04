@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -11,7 +12,7 @@ public class Supernova11567Main extends OpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
 
-    private RobotMotorsSetup RobotMotorsSetup = new RobotMotorsSetup();
+    private RobotMotorsSetup RobotMotorsSetup = new RobotMotorsSetup(hardwareMap);
 
     private double rightBrake = 0;
     private double leftBrake = 0;
@@ -30,7 +31,7 @@ public class Supernova11567Main extends OpMode {
     @Override
     public void init() {
         runtime.reset();
-        RobotMotorsSetup.init(hardwareMap);
+        RobotMotorsSetup.init();
 
     }
 
