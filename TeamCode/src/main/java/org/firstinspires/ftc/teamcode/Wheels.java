@@ -1,11 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-public class RobotMotorsSetup
+public class Wheels
 {
 
     public DcMotor  w0   = null;
@@ -15,24 +14,23 @@ public class RobotMotorsSetup
 
 
     /* local OpMode members. */
-    HardwareMap HardwareMap = null;
+    HardwareMap LocalHardwareMap = null;
     private ElapsedTime period = new ElapsedTime();
 
     /* Constructor */
-    public RobotMotorsSetup(HardwareMap hwMap){
-        HardwareMap = hwMap;
+    public Wheels(HardwareMap){
     }
 
     /* Initialize standard Hardware interfaces */
-    public void init() {
+    public void init(HardwareMap hwMap) {
         // Save reference to Hardware map
-
+        LocalHardwareMap = hwMap;
 
         // Define and Initialize Motors
-        w0  = HardwareMap.get(DcMotor.class, "w0");
-        w1  = HardwareMap.get(DcMotor.class, "w1");
-        w2  = HardwareMap.get(DcMotor.class, "w2");
-        w3  = HardwareMap.get(DcMotor.class, "w3");
+        w0  = hwMap.get(DcMotor.class, "w0");
+        w1  = hwMap.get(DcMotor.class, "w1");
+        w2  = hwMap.get(DcMotor.class, "w2");
+        w3  = hwMap.get(DcMotor.class, "w3");
 
         w0.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         w1.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
