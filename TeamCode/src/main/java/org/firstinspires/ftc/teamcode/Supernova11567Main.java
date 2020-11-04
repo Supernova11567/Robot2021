@@ -13,6 +13,7 @@ public class Supernova11567Main extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
 
     private RobotMotorsSetup RobotMotorsSetup = new RobotMotorsSetup(hardwareMap);
+    private Wheels WheelsSystem = new Wheels(hardwareMap, gamepad1, gamepad2);
 
     private double rightBrake = 0;
     private double leftBrake = 0;
