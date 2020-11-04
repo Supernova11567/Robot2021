@@ -26,6 +26,7 @@ public class IntakeSystem {
 
     public void loop() {
 
+        RobotMotorsSetup.moveIntake(gamepad2.right_trigger);
 
     }
 
