@@ -79,8 +79,11 @@ public class RobotMotorsSetup {
         w3.setPower(-(gamepad1.left_stick_y + gamepad1.left_stick_x) * leftBrake);
     }
 
-    public void moveWheelsManually (double angle, double speed) {
-
+    public void moveWheelsManually(double angle, double speed) {
+        w0.setPower((-getJoystickYValue(angle) - getJoystickXValue(angle)) * speed);
+        w1.setPower(-(getJoystickYValue(angle) - getJoystickXValue(angle)) * speed);
+        w2.setPower((-getJoystickYValue(angle) + getJoystickXValue(angle)) * speed);
+        w3.setPower(-(getJoystickYValue(angle) + getJoystickXValue(angle)) * speed);
     }
 
     public double getJoystickXValue(double angle) {
