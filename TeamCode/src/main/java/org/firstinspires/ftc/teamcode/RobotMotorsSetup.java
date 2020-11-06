@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
 public class RobotMotorsSetup {
 
@@ -79,7 +80,36 @@ public class RobotMotorsSetup {
     }
 
     public void moveWheelsManually (double angle, double speed) {
-        
+
+    }
+
+    public double getJoystickXValue(double angle) {
+        double newAngleX = angle;
+        double xValue;
+
+        if (Math.abs(newAngleX) > 179) {
+            newAngleX = 0;
+        } else {
+            newAngleX = Range.clip(newAngleX, -179, 179);
+        }
+
+        if (Math.abs(newAngleX) > 90) {
+            xValue = ((Math.abs(newAngleX) / 90) - 2 * ((Math.abs(newAngleX) / 90) % 1)) * (newAngleX / Math.abs(newAngleX));
+            return xValue;
+        } else {
+            xValue = newAngleX / 90;
+            return xValue;
+        }
+    }
+
+
+    public double getJoystickYValue(double angle) {
+        double newAngleY = angle;
+        double yValue;
+
+        yValue = (Math.abs(newAngleY) / 90) - 1;
+
+        return yValue;
     }
 
     public void moveIntake(double speed) {
