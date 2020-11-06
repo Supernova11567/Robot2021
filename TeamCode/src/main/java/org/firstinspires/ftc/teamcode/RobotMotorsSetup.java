@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
 public class RobotMotorsSetup {
 
@@ -71,11 +72,47 @@ public class RobotMotorsSetup {
 
     }
 
-    public void moveWheelMecanumByJoysticks(double rightBrake, double leftBrake) {
+    public void moveWheelsMecanumByJoysticks(double rightBrake, double leftBrake) {
         w0.setPower((-gamepad1.right_stick_y - gamepad1.right_stick_x) * rightBrake);
         w1.setPower(-(gamepad1.left_stick_y - gamepad1.left_stick_x) * leftBrake);
         w2.setPower((-gamepad1.right_stick_y + gamepad1.right_stick_x) * rightBrake);
         w3.setPower(-(gamepad1.left_stick_y + gamepad1.left_stick_x) * leftBrake);
+    }
+
+    public void moveWheelsManually(double angle, double speed) {
+        w0.setPower((-getJoystickYValue(angle) - getJoystickXValue(angle)) * speed);
+        w1.setPower(-(getJoystickYValue(angle) - getJoystickXValue(angle)) * speed);
+        w2.setPower((-getJoystickYValue(angle) + getJoystickXValue(angle)) * speed);
+        w3.setPower(-(getJoystickYValue(angle) + getJoystickXValue(angle)) * speed);
+    }
+
+    public double getJoystickXValue(double angle) {
+        double newAngleX = angle;
+        double xValue;
+
+        if (Math.abs(newAngleX) > 179) {
+            newAngleX = 0;
+        } else {
+            newAngleX = Range.clip(newAngleX, -179, 179);
+        }
+
+        if (Math.abs(newAngleX) > 90) {
+            xValue = ((Math.abs(newAngleX) / 90) - 2 * ((Math.abs(newAngleX) / 90) % 1)) * (newAngleX / Math.abs(newAngleX));
+            return xValue;
+        } else {
+            xValue = newAngleX / 90;
+            return xValue;
+        }
+    }
+
+
+    public double getJoystickYValue(double angle) {
+        double newAngleY = angle;
+        double yValue;
+
+        yValue = (Math.abs(newAngleY) / 90) - 1;
+
+        return yValue;
     }
 
     public void moveIntake(double speed) {
