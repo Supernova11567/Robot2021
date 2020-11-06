@@ -78,6 +78,10 @@ public class RobotMotorsSetup {
         w3.setPower(-(gamepad1.left_stick_y + gamepad1.left_stick_x) * leftBrake);
     }
 
+    public void moveWheelsManually (double angle, double speed) {
+        
+    }
+
     public void moveIntake(double speed) {
         motor_intake.setPower(speed);
     }
