@@ -63,4 +63,8 @@ public class Supernova11567Main extends OpMode {
     public void stop() {
     }
 
+    public void addTelemetryData (String title, String data) {
+        telemetry.addData(title, data);
+    }
+
 }
