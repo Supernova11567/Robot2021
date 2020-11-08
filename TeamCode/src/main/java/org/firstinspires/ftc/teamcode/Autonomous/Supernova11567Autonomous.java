@@ -35,4 +35,8 @@ public class Supernova11567Autonomous extends LinearOpMode {
 
 
     }
+
+    public void addTelemetryData (String title, String data) {
+        telemetry.addData(title, data);
+    }
 }
