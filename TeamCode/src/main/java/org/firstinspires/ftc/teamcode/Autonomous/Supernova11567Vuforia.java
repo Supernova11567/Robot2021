@@ -15,14 +15,13 @@ import org.firstinspires.ftc.teamcode.R;
 
 public class Supernova11567Vuforia {
 
-    Supernova11567Autonomous supernova11567Autonomous_forTelemetry;
 
     VuforiaLocalizer.Parameters parameters;
     VuforiaLocalizer vuforia;
     VuforiaTrackables beacons;
 
     /* constructor */
-    public Supernova11567Vuforia(VuforiaLocalizer.CameraDirection cameraDirection, VuforiaLocalizer.Parameters.CameraMonitorFeedback feedBack, Supernova11567Autonomous supernova11567Autonomous_forTelemetry) {
+    public Supernova11567Vuforia(VuforiaLocalizer.CameraDirection cameraDirection, VuforiaLocalizer.Parameters.CameraMonitorFeedback feedBack) {
 
         parameters = new VuforiaLocalizer.Parameters(R.id.cameraMonitorViewId);
         parameters.cameraDirection = cameraDirection;
@@ -39,7 +38,6 @@ public class Supernova11567Vuforia {
         beacons.get(3).setName("BlueAlliance");
         beacons.get(4).setName("FrontWall");
 
-        this.supernova11567Autonomous_forTelemetry = supernova11567Autonomous_forTelemetry;
     }
 
     public void init() {
@@ -55,8 +53,8 @@ public class Supernova11567Vuforia {
                 VectorF translation = position.getTranslation();
                 double degreesToTurn = Math.toDegrees(Math.atan2(translation.get(1), translation.get(2)));
 
-                supernova11567Autonomous_forTelemetry.addTelemetryData(beacon.getName() + "-translation:", String.valueOf(translation));
-                supernova11567Autonomous_forTelemetry.addTelemetryData(beacon.getName() + "-deegres:", String.valueOf(degreesToTurn));
+                //telemetry:    .addTelemetryData(beacon.getName() + "-translation:", String.valueOf(translation));
+                //telemetry:    .addTelemetryData(beacon.getName() + "-deegres:", String.valueOf(degreesToTurn));
             } else {
 
             }
