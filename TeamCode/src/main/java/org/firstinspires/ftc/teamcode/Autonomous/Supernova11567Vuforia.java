@@ -11,15 +11,18 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 import org.firstinspires.ftc.teamcode.R;
+import org.firstinspires.ftc.teamcode.Supernova11567Main;
 
 public class Supernova11567Vuforia {
+
+    Supernova11567Main supernova11567Main_forTelemetry;
 
     VuforiaLocalizer.Parameters parameters;
     VuforiaLocalizer vuforia;
     VuforiaTrackables beacons;
 
     /* constructor */
-    public Supernova11567Vuforia(VuforiaLocalizer.CameraDirection cameraDirection, VuforiaLocalizer.Parameters.CameraMonitorFeedback feedBack) {
+    public Supernova11567Vuforia(VuforiaLocalizer.CameraDirection cameraDirection, VuforiaLocalizer.Parameters.CameraMonitorFeedback feedBack, Supernova11567Main supernova11567Main_forTelemetry) {
 
         parameters = new VuforiaLocalizer.Parameters(R.id.cameraMonitorViewId);
         parameters.cameraDirection = cameraDirection;
@@ -36,6 +39,7 @@ public class Supernova11567Vuforia {
         beacons.get(3).setName("BlueAlliance");
         beacons.get(4).setName("FrontWall");
 
+        this.supernova11567Main_forTelemetry = supernova11567Main_forTelemetry;
     }
 
     public void init() {
@@ -51,7 +55,8 @@ public class Supernova11567Vuforia {
                 VectorF translation = position.getTranslation();
                 double degreesToTurn = Math.toDegrees(Math.atan2(translation.get(1), translation.get(2)));
 
-                //telemetry
+                supernova11567Main_forTelemetry.addTelemetryData(beacon.getName() + "-translation:", String.valueOf(translation));
+                supernova11567Main_forTelemetry.addTelemetryData(beacon.getName() + "-deegres:", String.valueOf(degreesToTurn));
             } else {
 
             }
