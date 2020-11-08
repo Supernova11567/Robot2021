@@ -34,8 +34,8 @@ public class Supernova11567Vuforia {
         beacons.get(1).setName("RedTowerGoal");
         beacons.get(2).setName("RedAlliance");
         beacons.get(3).setName("BlueAlliance");
-
         beacons.get(4).setName("FrontWall");
+
     }
 
     public void init() {
@@ -43,17 +43,16 @@ public class Supernova11567Vuforia {
     }
 
     public void loop() {
-        for(VuforiaTrackable beacon:beacons) {
+        for (VuforiaTrackable beacon : beacons) {
             OpenGLMatrix position = ((VuforiaTrackableDefaultListener) beacon.getListener()).getPose();
 
             if (position != null) {
 
                 VectorF translation = position.getTranslation();
-                double degreesToTurn = Math.toDegrees( Math.atan2( translation.get(1), translation.get(2) ) );
+                double degreesToTurn = Math.toDegrees(Math.atan2(translation.get(1), translation.get(2)));
 
                 //telemetry
-            }
-            else {
+            } else {
 
             }
 
