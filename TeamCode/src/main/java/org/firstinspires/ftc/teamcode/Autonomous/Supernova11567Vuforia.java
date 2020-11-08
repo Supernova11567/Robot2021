@@ -3,8 +3,12 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 import com.vuforia.Vuforia;
 import com.vuforia.HINT;
 
+import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
+import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 import org.firstinspires.ftc.teamcode.R;
 
@@ -39,7 +43,21 @@ public class Supernova11567Vuforia {
     }
 
     public void loop() {
-        
+        for(VuforiaTrackable beacon:beacons) {
+            OpenGLMatrix position = ((VuforiaTrackableDefaultListener) beacon.getListener()).getPose();
+
+            if (position != null) {
+
+                VectorF translation = position.getTranslation();
+                double degreesToTurn = Math.toDegrees( Math.atan2( translation.get(1), translation.get(2) ) );
+
+                //telemetry
+            }
+            else {
+
+            }
+
+        }
     }
 
 }
