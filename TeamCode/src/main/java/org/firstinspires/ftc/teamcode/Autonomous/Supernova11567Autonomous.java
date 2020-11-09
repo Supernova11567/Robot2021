@@ -36,8 +36,5 @@ public class Supernova11567Autonomous extends LinearOpMode {
         Supernova11567Vufofria.loop();
 
     }
-
-    public void addTelemetryData (String title, String data) {
-        telemetry.addData(title, data);
-    }
+    
 }
