@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 import com.vuforia.Vuforia;
 import com.vuforia.HINT;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
@@ -21,7 +22,7 @@ public class Supernova11567Vuforia {
     VuforiaTrackables beacons;
 
     /* constructor */
-    public Supernova11567Vuforia(VuforiaLocalizer.CameraDirection cameraDirection, VuforiaLocalizer.Parameters.CameraMonitorFeedback feedBack) {
+    public Supernova11567Vuforia(VuforiaLocalizer.CameraDirection cameraDirection, VuforiaLocalizer.Parameters.CameraMonitorFeedback feedBack, Telemetry telemetry) {
 
         parameters = new VuforiaLocalizer.Parameters(R.id.cameraMonitorViewId);
         parameters.cameraDirection = cameraDirection;
