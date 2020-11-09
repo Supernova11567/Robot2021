@@ -28,11 +28,12 @@ public class Supernova11567Autonomous extends LinearOpMode {
         //Until PLAY (after init)
         runtime.reset();
         RobotMotorsSetup.init();
+        Supernova11567Vufofria.init();
 
         waitForStart();
-
         //run once (after PLAY)
 
+        Supernova11567Vufofria.loop();
 
     }
 
