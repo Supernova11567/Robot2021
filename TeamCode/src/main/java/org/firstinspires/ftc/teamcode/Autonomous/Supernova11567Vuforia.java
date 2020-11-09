@@ -21,6 +21,8 @@ public class Supernova11567Vuforia {
     VuforiaLocalizer vuforia;
     VuforiaTrackables beacons;
 
+    Telemetry telemetry;
+
     /* constructor */
     public Supernova11567Vuforia(VuforiaLocalizer.CameraDirection cameraDirection, VuforiaLocalizer.Parameters.CameraMonitorFeedback feedBack, Telemetry telemetry) {
 
@@ -39,6 +41,8 @@ public class Supernova11567Vuforia {
         beacons.get(3).setName("BlueAlliance");
         beacons.get(4).setName("FrontWall");
 
+        this.telemetry = telemetry;
+
     }
 
     public void init() {
@@ -54,8 +58,8 @@ public class Supernova11567Vuforia {
                 VectorF translation = position.getTranslation();
                 double degreesToTurn = Math.toDegrees(Math.atan2(translation.get(1), translation.get(2)));
 
-                //telemetry:    .addTelemetryData(beacon.getName() + "-translation:", String.valueOf(translation));
-                //telemetry:    .addTelemetryData(beacon.getName() + "-deegres:", String.valueOf(degreesToTurn));
+                telemetry.addData(beacon.getName() + "-translation:", String.valueOf(translation));
+                telemetry.addData(beacon.getName() + "-deegres:", String.valueOf(degreesToTurn));
             } else {
 
             }
