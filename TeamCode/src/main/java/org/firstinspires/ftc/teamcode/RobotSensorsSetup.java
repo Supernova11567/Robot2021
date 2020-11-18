@@ -26,6 +26,7 @@ public class RobotSensorsSetup {
     /* Initialize standard Hardware interfaces */
     public void init() {
         // Define and Initialize Motors
+        distanceSensor = HardwareMap.get(DistanceSensor.class, "distanceSensor");
 
     }
 
