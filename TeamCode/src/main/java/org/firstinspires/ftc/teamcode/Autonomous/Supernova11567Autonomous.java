@@ -20,6 +20,10 @@ public class Supernova11567Autonomous extends LinearOpMode {
                                          1     0
                                          3     2         */
 
+    //autonomous variables
+    boolean startedRight;
+    int numberOfStartedRings;
+
     @Override
     public void runOpMode() {
 
@@ -31,6 +35,7 @@ public class Supernova11567Autonomous extends LinearOpMode {
         waitForStart();
         //run once (after PLAY)
 
+        RobotMotorsSetup.loop();
         Supernova11567Vufofria.loop();
 
     }
