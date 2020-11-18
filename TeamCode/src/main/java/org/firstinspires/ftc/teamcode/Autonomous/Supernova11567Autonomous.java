@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.teamcode.RobotMotorsSetup;
 
 @Autonomous(name = "Supernova11567Autonomous", group = "Supernova11567")
@@ -35,12 +36,21 @@ public class Supernova11567Autonomous extends LinearOpMode {
         waitForStart();
         //run once (after PLAY)
 
-        Supernova11567Vufofria.configureLoop(true); //vuforia starts loop
+        Supernova11567Vufofria.configureLoop(true); //vuforia starts loop (track images)
 
         //robot starts vertical to wall- and wobble doesn't in front of the robot (to not disturb)
 
         //PID- robot needs to move forward 60 cm, track and set number of rings
-        RobotMotorsSetup.rotateRobotManually(true,0.2);
+
+        RobotMotorsSetup.rotateRobotByAngle(40); //robot rotate right and tries to track red alliance wall image
+        if (((VuforiaTrackableDefaultListener) Supernova11567Vufofria.beacons.get(2).getListener()).getPose() == null) {
+            //didn't track right side target image
+            startedRight = false;
+        }
+        else {
+            startedRight = true;
+        }
+
 
     }
 }
