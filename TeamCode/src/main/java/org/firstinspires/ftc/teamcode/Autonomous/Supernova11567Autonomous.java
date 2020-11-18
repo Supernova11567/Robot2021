@@ -23,6 +23,10 @@ public class Supernova11567Autonomous extends LinearOpMode {
                                            /|\ forward
                                          1     0
                                          3     2         */
+    //robot variables
+    double yDistanceBetweenWheelsCenters = 10; //template
+    double xDistanceBetweenWheelsCenters = 10; //template
+    double robotCircleDiameter = yDistanceBetweenWheelsCenters / (Math.sin(Math.atan(yDistanceBetweenWheelsCenters / xDistanceBetweenWheelsCenters)));
 
     //autonomous variables
     boolean startedRight = Boolean.parseBoolean(null);
@@ -84,7 +88,18 @@ public class Supernova11567Autonomous extends LinearOpMode {
     }
 
     public void rotateRobotByAngle(double angles) {
+        double distanceToRotate = (robotCircleDiameter * Math.PI) * (angles / 360);
 
+        pidAutonomous.resetAllCalculations();
+        pidAutonomous.PID_start(RobotMotorsSetup.w0.getCurrentPosition(), runtime.time(), distanceToRotate, 1);
+        while (pidAutonomous.reachedTarget == false) {
+            RobotMotorsSetup.w0.setPower(pidAutonomous.PID_calculate(RobotMotorsSetup.w0.getCurrentPosition(), runtime.time()));
+            RobotMotorsSetup.w1.setPower(pidAutonomous.PID_calculate(RobotMotorsSetup.w0.getCurrentPosition(), runtime.time()));
+            RobotMotorsSetup.w2.setPower(pidAutonomous.PID_calculate(RobotMotorsSetup.w0.getCurrentPosition(), runtime.time()));
+            RobotMotorsSetup.w3.setPower(pidAutonomous.PID_calculate(RobotMotorsSetup.w0.getCurrentPosition(), runtime.time()));
+        }
+        RobotMotorsSetup.stopAllMovement();
+        pidAutonomous.resetAllCalculations();
     }
 
     public void rotateRobotManually(boolean clockwise, double speed) {
