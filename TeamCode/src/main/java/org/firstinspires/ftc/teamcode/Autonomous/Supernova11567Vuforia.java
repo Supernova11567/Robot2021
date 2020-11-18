@@ -85,7 +85,7 @@ public class Supernova11567Vuforia {
                 if (position != null) {
 
                     VectorF translation = position.getTranslation();
-                    double degreesToTurn = Math.toDegrees(Math.atan2(translation.get(1), translation.get(2)));
+                    double degreesToTurn = degreesToAlignImageTranslation(translation);
 
                     telemetry.addData(beacon.getName() + "-translation:", String.valueOf(translation));
                     telemetry.addData(beacon.getName() + "-deegres:", String.valueOf(degreesToTurn));
@@ -98,7 +98,7 @@ public class Supernova11567Vuforia {
         }
     }
 
-    public VectorF getBeaconTranslationByName (String beaconName) {
+    public VectorF getBeaconTranslationByName(String beaconName) {
         switch (beaconName) {
             case "BlueTowerGoal":
                 return beaconsTranslations[0];
@@ -120,4 +120,9 @@ public class Supernova11567Vuforia {
         }
     }
 
+    public double degreesToAlignImageTranslation (VectorF imageTranslation) {
+        return Math.toDegrees(Math.atan2(imageTranslation.get(0), imageTranslation.get(2)));
+
+        //this code is for horizontal phone. for vertical:      Math.toDegrees(Math.atan2(imageTranslation.get(0), imageTranslation.get(2)))
+    }
 }
