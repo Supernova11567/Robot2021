@@ -21,7 +21,11 @@ public class Supernova11567Vuforia {
     VuforiaLocalizer vuforia;
     VuforiaTrackables beacons;
 
+    OpenGLMatrix[] beaconsPositions;
+
     Telemetry telemetry;
+
+    boolean isLoopActive = false;
 
     /* constructor */
     public Supernova11567Vuforia(VuforiaLocalizer.CameraDirection cameraDirection, VuforiaLocalizer.Parameters.CameraMonitorFeedback feedBack, Telemetry telemetry) {
@@ -43,28 +47,82 @@ public class Supernova11567Vuforia {
 
         this.telemetry = telemetry;
 
+        beaconsPositions = new OpenGLMatrix[]{null, null, null, null, null};//array of all the 5 beacons translations
+
     }
 
     public void init() {
         beacons.activate();
     }
 
+    public void configureLoop(boolean isLoopActive) {
+        this.isLoopActive = isLoopActive;
+        loop();
+    }
+
     public void loop() {
-        for (VuforiaTrackable beacon : beacons) {
-            OpenGLMatrix position = ((VuforiaTrackableDefaultListener) beacon.getListener()).getPose();
+        while (isLoopActive) {
+            for (VuforiaTrackable beacon : beacons) {
+                OpenGLMatrix position = ((VuforiaTrackableDefaultListener) beacon.getListener()).getPose();
 
-            if (position != null) {
+                switch (beacon.getName()) {
+                    case "BlueTowerGoal":
+                        beaconsPositions[0] = position;
 
-                VectorF translation = position.getTranslation();
-                double degreesToTurn = Math.toDegrees(Math.atan2(translation.get(1), translation.get(2)));
+                    case "RedTowerGoal":
+                        beaconsPositions[1] = position;
 
-                telemetry.addData(beacon.getName() + "-translation:", String.valueOf(translation));
-                telemetry.addData(beacon.getName() + "-deegres:", String.valueOf(degreesToTurn));
-            } else {
+                    case "RedAlliance":
+                        beaconsPositions[2] = position;
+
+                    case "BlueAlliance":
+                        beaconsPositions[3] = position;
+
+                    case "FrontWall":
+                        beaconsPositions[4] = position;
+                }
+
+                if (position != null) {
+
+                    VectorF translation = position.getTranslation();
+                    double degreesToTurn = degreesToAlignImageTranslation(translation);
+
+                    telemetry.addData(beacon.getName() + "-translation:", String.valueOf(translation));
+                    telemetry.addData(beacon.getName() + "-deegres:", String.valueOf(degreesToTurn));
+                } else {
+
+                }
 
             }
 
         }
     }
 
+    public OpenGLMatrix getBeaconPositionByName(String beaconName) {
+        switch (beaconName) {
+            case "BlueTowerGoal":
+                return beaconsPositions[0];
+
+            case "RedTowerGoal":
+                return beaconsPositions[1];
+
+            case "RedAlliance":
+                return beaconsPositions[2];
+
+            case "BlueAlliance":
+                return beaconsPositions[3];
+
+            case "FrontWall":
+                return beaconsPositions[4];
+
+            default:
+                return null;
+        }
+    }
+
+    public double degreesToAlignImageTranslation (VectorF imageTranslation) {
+        return Math.toDegrees(Math.atan2(imageTranslation.get(0), imageTranslation.get(2)));
+
+        //this code is for horizontal phone. for vertical:      Math.toDegrees(Math.atan2(imageTranslation.get(0), imageTranslation.get(2)))
+    }
 }

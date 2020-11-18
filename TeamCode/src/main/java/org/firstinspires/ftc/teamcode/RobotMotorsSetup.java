@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -31,9 +30,6 @@ public class RobotMotorsSetup {
 
     /* Initialize standard Hardware interfaces */
     public void init() {
-        // Save reference to Hardware map
-
-
         // Define and Initialize Motors
         w0 = HardwareMap.get(DcMotor.class, "w0");
         w1 = HardwareMap.get(DcMotor.class, "w1");
@@ -86,6 +82,25 @@ public class RobotMotorsSetup {
         w3.setPower(-(getJoystickYValue(angle) + getJoystickXValue(angle)) * speed);
     }
 
+    public void rotateRobotByAngle(double angles) {
+
+    }
+
+    public void rotateRobotManually(boolean clockwise, double speed) {
+        if (clockwise) {
+            w0.setPower(-speed);
+            w1.setPower(-speed);
+            w2.setPower(-speed);
+            w3.setPower(-speed);
+        }
+        else {
+            w0.setPower(speed);
+            w1.setPower(speed);
+            w2.setPower(speed);
+            w3.setPower(speed);
+        }
+    }
+
     public double getJoystickXValue(double angle) {
         double newAngleX = angle;
         double xValue;
@@ -117,6 +132,15 @@ public class RobotMotorsSetup {
 
     public void moveIntake(double speed) {
         motor_intake.setPower(speed);
+    }
+
+    public void stopAllMovement () {
+        //resets all motors to 0 speed
+        w0.setPower(0);
+        w1.setPower(0);
+        w2.setPower(0);
+        w3.setPower(0);
+        motor_intake.setPower(0);
     }
 }
 
