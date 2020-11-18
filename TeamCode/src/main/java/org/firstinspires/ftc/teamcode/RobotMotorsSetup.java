@@ -75,31 +75,6 @@ public class RobotMotorsSetup {
         w3.setPower(-(gamepad1.left_stick_y + gamepad1.left_stick_x) * leftBrake);
     }
 
-    public void moveWheelsManually(double angle, double speed) {
-        w0.setPower((-getJoystickYValue(angle) - getJoystickXValue(angle)) * speed);
-        w1.setPower(-(getJoystickYValue(angle) - getJoystickXValue(angle)) * speed);
-        w2.setPower((-getJoystickYValue(angle) + getJoystickXValue(angle)) * speed);
-        w3.setPower(-(getJoystickYValue(angle) + getJoystickXValue(angle)) * speed);
-    }
-
-    public void rotateRobotByAngle(double angles) {
-
-    }
-
-    public void rotateRobotManually(boolean clockwise, double speed) {
-        if (clockwise) {
-            w0.setPower(-speed);
-            w1.setPower(-speed);
-            w2.setPower(-speed);
-            w3.setPower(-speed);
-        }
-        else {
-            w0.setPower(speed);
-            w1.setPower(speed);
-            w2.setPower(speed);
-            w3.setPower(speed);
-        }
-    }
 
     public double getJoystickXValue(double angle) {
         double newAngleX = angle;
