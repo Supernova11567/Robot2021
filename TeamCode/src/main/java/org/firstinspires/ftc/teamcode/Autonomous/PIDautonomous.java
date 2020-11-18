@@ -10,6 +10,14 @@ public class PIDautonomous {
     double startTime = 0;
     double distanceToMove = 0;
 
+    //PID formula variables
+    double error;
+    double integral;
+    double derivative;
+
+    double lastError;
+    double lastTime;
+
 
     /* constructor */
     public PIDautonomous (double kp, double ki, double kd) {
@@ -28,6 +36,20 @@ public class PIDautonomous {
     }
 
     public double PID_calculate (double currentPosition, double currentTime) {
-        
+        //P
+        error = distanceToMove - (currentPosition - startPosition);
+
+        //I
+        integral += currentPosition * (currentTime - lastTime);
+
+        //D
+        derivative = ( lastError - error ) / ( currentTime - lastTime );
+
+        double finalOutput = pidCoefficients.p * error + pidCoefficients.i * integral + pidCoefficients.d * derivative;
+
+        lastError = error;
+        lastTime = currentTime;
+
+        return finalOutput;
     }
 }
