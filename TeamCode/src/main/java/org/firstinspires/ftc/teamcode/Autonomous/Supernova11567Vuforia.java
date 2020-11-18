@@ -98,4 +98,26 @@ public class Supernova11567Vuforia {
         }
     }
 
+    public VectorF getBeaconTranslationByName (String beaconName) {
+        switch (beaconName) {
+            case "BlueTowerGoal":
+                return beaconsTranslations[0];
+
+            case "RedTowerGoal":
+                return beaconsTranslations[1];
+
+            case "RedAlliance":
+                return beaconsTranslations[2];
+
+            case "BlueAlliance":
+                return beaconsTranslations[3];
+
+            case "FrontWall":
+                return beaconsTranslations[4];
+
+            default:
+                return null;
+        }
+    }
+
 }
