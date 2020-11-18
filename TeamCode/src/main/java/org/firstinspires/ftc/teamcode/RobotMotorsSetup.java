@@ -137,5 +137,14 @@ public class RobotMotorsSetup {
     public void moveIntake(double speed) {
         motor_intake.setPower(speed);
     }
+
+    public void stopAllMovement () {
+        //resets all motors to 0 speed
+        w0.setPower(0);
+        w1.setPower(0);
+        w2.setPower(0);
+        w3.setPower(0);
+        motor_intake.setPower(0);
+    }
 }
 
