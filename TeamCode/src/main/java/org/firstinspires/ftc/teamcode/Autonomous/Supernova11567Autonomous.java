@@ -21,7 +21,7 @@ public class Supernova11567Autonomous extends LinearOpMode {
                                          3     2         */
 
     //autonomous variables
-    boolean startedRight;
+    boolean startedRight = Boolean.parseBoolean(null);
     int numberOfStartedRings;
 
     @Override
@@ -35,9 +35,14 @@ public class Supernova11567Autonomous extends LinearOpMode {
         waitForStart();
         //run once (after PLAY)
 
-        RobotMotorsSetup.loop();
-        Supernova11567Vufofria.loop();
+        Supernova11567Vufofria.configureLoop(true); //vuforia starts loop
+
+        //robot starts vertical to wall- and wobble doesn't in front of the robot (to not disturb)
+        while (startedRight = Boolean.parseBoolean(null)) {
+            double angle = 0;
+            RobotMotorsSetup.moveWheelsManually(angle,0.25);
+
+        }
 
     }
-
 }

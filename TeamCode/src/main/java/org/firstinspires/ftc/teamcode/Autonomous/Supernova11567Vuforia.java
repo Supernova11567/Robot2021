@@ -23,6 +23,8 @@ public class Supernova11567Vuforia {
 
     Telemetry telemetry;
 
+    boolean isLoopActive = false;
+
     /* constructor */
     public Supernova11567Vuforia(VuforiaLocalizer.CameraDirection cameraDirection, VuforiaLocalizer.Parameters.CameraMonitorFeedback feedBack, Telemetry telemetry) {
 
@@ -49,18 +51,26 @@ public class Supernova11567Vuforia {
         beacons.activate();
     }
 
+    public void configureLoop(boolean isLoopActive) {
+        this.isLoopActive = isLoopActive;
+        loop();
+    }
+
     public void loop() {
-        for (VuforiaTrackable beacon : beacons) {
-            OpenGLMatrix position = ((VuforiaTrackableDefaultListener) beacon.getListener()).getPose();
+        while (isLoopActive) {
+            for (VuforiaTrackable beacon : beacons) {
+                OpenGLMatrix position = ((VuforiaTrackableDefaultListener) beacon.getListener()).getPose();
 
-            if (position != null) {
+                if (position != null) {
 
-                VectorF translation = position.getTranslation();
-                double degreesToTurn = Math.toDegrees(Math.atan2(translation.get(1), translation.get(2)));
+                    VectorF translation = position.getTranslation();
+                    double degreesToTurn = Math.toDegrees(Math.atan2(translation.get(1), translation.get(2)));
 
-                telemetry.addData(beacon.getName() + "-translation:", String.valueOf(translation));
-                telemetry.addData(beacon.getName() + "-deegres:", String.valueOf(degreesToTurn));
-            } else {
+                    telemetry.addData(beacon.getName() + "-translation:", String.valueOf(translation));
+                    telemetry.addData(beacon.getName() + "-deegres:", String.valueOf(degreesToTurn));
+                } else {
+
+                }
 
             }
 
