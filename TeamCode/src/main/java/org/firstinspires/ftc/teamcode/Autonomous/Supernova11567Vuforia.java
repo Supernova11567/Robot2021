@@ -21,6 +21,8 @@ public class Supernova11567Vuforia {
     VuforiaLocalizer vuforia;
     VuforiaTrackables beacons;
 
+    VectorF[] beaconsTranslations;
+
     Telemetry telemetry;
 
     boolean isLoopActive = false;
@@ -45,6 +47,8 @@ public class Supernova11567Vuforia {
 
         this.telemetry = telemetry;
 
+        beaconsTranslations = new VectorF[]{null, null, null, null, null};//array of all the 5 beacons translations
+
     }
 
     public void init() {
@@ -60,6 +64,23 @@ public class Supernova11567Vuforia {
         while (isLoopActive) {
             for (VuforiaTrackable beacon : beacons) {
                 OpenGLMatrix position = ((VuforiaTrackableDefaultListener) beacon.getListener()).getPose();
+
+                switch (beacon.getName()) {
+                    case "BlueTowerGoal":
+                        beaconsTranslations[0] = position.getTranslation();
+
+                    case "RedTowerGoal":
+                        beaconsTranslations[1] = position.getTranslation();
+
+                    case "RedAlliance":
+                        beaconsTranslations[2] = position.getTranslation();
+
+                    case "BlueAlliance":
+                        beaconsTranslations[3] = position.getTranslation();
+
+                    case "FrontWall":
+                        beaconsTranslations[4] = position.getTranslation();
+                }
 
                 if (position != null) {
 

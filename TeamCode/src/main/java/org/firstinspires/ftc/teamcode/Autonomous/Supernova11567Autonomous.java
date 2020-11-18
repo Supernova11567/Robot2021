@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.teamcode.RobotMotorsSetup;
+import org.firstinspires.ftc.teamcode.RobotSensorsSetup;
 
 @Autonomous(name = "Supernova11567Autonomous", group = "Supernova11567")
 
@@ -15,6 +16,7 @@ public class Supernova11567Autonomous extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
 
     private org.firstinspires.ftc.teamcode.RobotMotorsSetup RobotMotorsSetup = new RobotMotorsSetup(hardwareMap, gamepad1, gamepad2);
+    private RobotSensorsSetup RobotSensorsSetup = new RobotSensorsSetup(hardwareMap, gamepad1, gamepad2);
     private Supernova11567Vuforia Supernova11567Vufofria = new Supernova11567Vuforia(VuforiaLocalizer.CameraDirection.BACK, VuforiaLocalizer.Parameters.CameraMonitorFeedback.AXES, telemetry);
     /* motors configuration on robot:
                                            /|\ forward
@@ -52,5 +54,15 @@ public class Supernova11567Autonomous extends LinearOpMode {
         }
 
 
+
+        if (startedRight) {//right side full autonomous
+            switch (numberOfStartedRings) {
+                case 0:
+                    Supernova11567Vufofria
+            }
+        }
+        else {//left side full autonomous
+
+        }
     }
 }
