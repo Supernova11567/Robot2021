@@ -43,7 +43,7 @@ public class Supernova11567Autonomous extends LinearOpMode {
         //robot starts vertical to wall- and wobble doesn't in front of the robot (to not disturb)
         //and phone must start vertical                                                                         !!!
 
-        //PID- robot needs to move forward 60 cm, track and set number of rings
+        //PID- robot needs to move forward 60 inch, track and set number of rings
 
         RobotMotorsSetup.rotateRobotByAngle(40); //robot rotate right and tries to track red alliance wall image
 
@@ -55,12 +55,24 @@ public class Supernova11567Autonomous extends LinearOpMode {
         }
 
 
-        if (startedRight) {//right side full autonomous
-            switch (numberOfStartedRings) {
+        if (startedRight) { //right side full autonomous
+
+            switch (numberOfStartedRings) { //putting wobble at the correct square
                 case 0:
-                    Supernova11567Vufofria.getBeaconTranslationByName("RedAlliance")
+                    RobotMotorsSetup.rotateRobotByAngle(
+                            Supernova11567Vufofria.degreesToAlignImageTranslation(
+                                    Supernova11567Vufofria.getBeaconPositionByName("RedAlliance").getTranslation() )); //align robot to be vertical to the wall
+
+                    while (Supernova11567Vufofria.getBeaconPositionByName("RedAlliance") == null) { //robot moves left until track image
+                        RobotMotorsSetup.moveWheelsManually(-90, 0.2);
+                    }
+
+                    //      PID_moveLeft( 0.375-Supernova11567Vufofria.getBeaconPositionByName("RedAlliance").getTranslation().get(0) ) //robot centers itself to the cube (centers the camera...)
             }
-        } else {//left side full autonomous
+
+        }
+
+        else {//left side full autonomous
 
         }
     }

@@ -21,7 +21,7 @@ public class Supernova11567Vuforia {
     VuforiaLocalizer vuforia;
     VuforiaTrackables beacons;
 
-    VectorF[] beaconsTranslations;
+    OpenGLMatrix[] beaconsPositions;
 
     Telemetry telemetry;
 
@@ -47,7 +47,7 @@ public class Supernova11567Vuforia {
 
         this.telemetry = telemetry;
 
-        beaconsTranslations = new VectorF[]{null, null, null, null, null};//array of all the 5 beacons translations
+        beaconsPositions = new OpenGLMatrix[]{null, null, null, null, null};//array of all the 5 beacons translations
 
     }
 
@@ -67,19 +67,19 @@ public class Supernova11567Vuforia {
 
                 switch (beacon.getName()) {
                     case "BlueTowerGoal":
-                        beaconsTranslations[0] = position.getTranslation();
+                        beaconsPositions[0] = position;
 
                     case "RedTowerGoal":
-                        beaconsTranslations[1] = position.getTranslation();
+                        beaconsPositions[1] = position;
 
                     case "RedAlliance":
-                        beaconsTranslations[2] = position.getTranslation();
+                        beaconsPositions[2] = position;
 
                     case "BlueAlliance":
-                        beaconsTranslations[3] = position.getTranslation();
+                        beaconsPositions[3] = position;
 
                     case "FrontWall":
-                        beaconsTranslations[4] = position.getTranslation();
+                        beaconsPositions[4] = position;
                 }
 
                 if (position != null) {
@@ -98,22 +98,22 @@ public class Supernova11567Vuforia {
         }
     }
 
-    public VectorF getBeaconTranslationByName(String beaconName) {
+    public OpenGLMatrix getBeaconPositionByName(String beaconName) {
         switch (beaconName) {
             case "BlueTowerGoal":
-                return beaconsTranslations[0];
+                return beaconsPositions[0];
 
             case "RedTowerGoal":
-                return beaconsTranslations[1];
+                return beaconsPositions[1];
 
             case "RedAlliance":
-                return beaconsTranslations[2];
+                return beaconsPositions[2];
 
             case "BlueAlliance":
-                return beaconsTranslations[3];
+                return beaconsPositions[3];
 
             case "FrontWall":
-                return beaconsTranslations[4];
+                return beaconsPositions[4];
 
             default:
                 return null;
