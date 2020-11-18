@@ -50,7 +50,7 @@ public class Supernova11567Autonomous extends LinearOpMode {
 
         //PID- robot needs to move forward 60 inch, track and set number of rings
 
-        rotateRobotByAngle(40); //robot rotate right and tries to track red alliance wall image
+        rotateRobotByAngle(40, true); //robot rotate right and tries to track red alliance wall image
 
         if (((VuforiaTrackableDefaultListener) Supernova11567Vufofria.beacons.get(2).getListener()).getPose() == null) {
             //didn't track right side target image
@@ -66,7 +66,7 @@ public class Supernova11567Autonomous extends LinearOpMode {
                 case 0:
                     rotateRobotByAngle(
                             Supernova11567Vufofria.degreesToAlignImageTranslation(
-                                    Supernova11567Vufofria.getBeaconPositionByName("RedAlliance").getTranslation())); //align robot to be vertical to the wall
+                                    Supernova11567Vufofria.getBeaconPositionByName("RedAlliance").getTranslation()), true); //align robot to be vertical to the wall
 
                     while (Supernova11567Vufofria.getBeaconPositionByName("RedAlliance") == null) { //robot moves left until track image
                         moveWheelsManually(-90, 0.2);
@@ -80,6 +80,19 @@ public class Supernova11567Autonomous extends LinearOpMode {
         }
     }
 
+    public void moveWheelsByDistance (double distanceToMove, double angle) {
+        pidAutonomous.resetAllCalculations();
+        pidAutonomous.PID_start(RobotMotorsSetup.w0.getCurrentPosition(), runtime.time(), distanceToMove, 1);
+
+        while (pidAutonomous.reachedTarget == false) {
+            RobotMotorsSetup.w0.setPower((-RobotMotorsSetup.getJoystickYValue(angle) - RobotMotorsSetup.getJoystickXValue(angle)) * pidAutonomous.PID_calculate(/* needs to give moved distance considered angle */) );
+            RobotMotorsSetup.w1.setPower(-(RobotMotorsSetup.getJoystickYValue(angle) - RobotMotorsSetup.getJoystickXValue(angle)) * pidAutonomous.PID_calculate(/* needs to give moved distance considered angle */) );
+            RobotMotorsSetup.w2.setPower((-RobotMotorsSetup.getJoystickYValue(angle) + RobotMotorsSetup.getJoystickXValue(angle)) * pidAutonomous.PID_calculate(/* needs to give moved distance considered angle */) );
+            RobotMotorsSetup.w3.setPower(-(RobotMotorsSetup.getJoystickYValue(angle) + RobotMotorsSetup.getJoystickXValue(angle)) * pidAutonomous.PID_calculate(/* needs to give moved distance considered angle */) );
+        }
+
+    }
+
     public void moveWheelsManually(double angle, double speed) {
         RobotMotorsSetup.w0.setPower((-RobotMotorsSetup.getJoystickYValue(angle) - RobotMotorsSetup.getJoystickXValue(angle)) * speed);
         RobotMotorsSetup.w1.setPower(-(RobotMotorsSetup.getJoystickYValue(angle) - RobotMotorsSetup.getJoystickXValue(angle)) * speed);
@@ -87,7 +100,7 @@ public class Supernova11567Autonomous extends LinearOpMode {
         RobotMotorsSetup.w3.setPower(-(RobotMotorsSetup.getJoystickYValue(angle) + RobotMotorsSetup.getJoystickXValue(angle)) * speed);
     }
 
-    public void rotateRobotByAngle(double angles) {
+    public void rotateRobotByAngle(double angles, boolean stopMovementAtEnd) {
         double distanceToRotate = (robotCircleDiameter * Math.PI) * (angles / 360);
 
         pidAutonomous.resetAllCalculations();
@@ -99,7 +112,6 @@ public class Supernova11567Autonomous extends LinearOpMode {
             RobotMotorsSetup.w3.setPower(pidAutonomous.PID_calculate(RobotMotorsSetup.w0.getCurrentPosition(), runtime.time()));
         }
         RobotMotorsSetup.stopAllMovement();
-        pidAutonomous.resetAllCalculations();
     }
 
     public void rotateRobotManually(boolean clockwise, double speed) {
