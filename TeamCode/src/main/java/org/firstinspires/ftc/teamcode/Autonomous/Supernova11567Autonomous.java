@@ -40,7 +40,7 @@ public class Supernova11567Autonomous extends LinearOpMode {
         //robot starts vertical to wall- and wobble doesn't in front of the robot (to not disturb)
 
         //PID- robot needs to move forward 60 cm, track and set number of rings
-
+        RobotMotorsSetup.rotateRobotManually(true,0.2);
 
     }
 }
