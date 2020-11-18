@@ -8,6 +8,7 @@ public class PIDautonomous {
 
     double startPosition = 0;
     double startTime = 0;
+    double distanceToMove = 0;
 
 
     /* constructor */
@@ -16,12 +17,17 @@ public class PIDautonomous {
     }
 
     public void resetAllCalculations () {
-
+        startPosition = 0;
+        startTime = 0;
     }
 
-    public double PID_start (double startPosition, double starTime) {
-        
+    public void PID_start (double startPosition, double starTime, double DistanceToMove) {
         this.startPosition = startPosition;
         this.startTime = starTime;
+        this.distanceToMove = distanceToMove;
+    }
+
+    public double PID_calculate (double currentPosition, double currentTime) {
+        
     }
 }
