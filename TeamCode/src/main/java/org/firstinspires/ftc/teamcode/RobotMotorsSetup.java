@@ -30,9 +30,6 @@ public class RobotMotorsSetup {
 
     /* Initialize standard Hardware interfaces */
     public void init() {
-        // Save reference to Hardware map
-
-
         // Define and Initialize Motors
         w0 = HardwareMap.get(DcMotor.class, "w0");
         w1 = HardwareMap.get(DcMotor.class, "w1");
