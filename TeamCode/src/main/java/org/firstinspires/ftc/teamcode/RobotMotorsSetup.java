@@ -86,6 +86,9 @@ public class RobotMotorsSetup {
         w3.setPower(-(getJoystickYValue(angle) + getJoystickXValue(angle)) * speed);
     }
 
+    public void rotateRobot(double angles) {
+        
+    }
     public double getJoystickXValue(double angle) {
         double newAngleX = angle;
         double xValue;
