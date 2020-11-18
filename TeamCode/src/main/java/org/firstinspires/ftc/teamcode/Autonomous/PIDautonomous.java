@@ -27,6 +27,14 @@ public class PIDautonomous {
     public void resetAllCalculations () {
         startPosition = 0;
         startTime = 0;
+        distanceToMove = 0;
+
+        error = 0;
+        integral = 0;
+        derivative = 0;
+
+        lastError = 0;
+        lastTime = 0;
     }
 
     public void PID_start (double startPosition, double starTime, double DistanceToMove) {
