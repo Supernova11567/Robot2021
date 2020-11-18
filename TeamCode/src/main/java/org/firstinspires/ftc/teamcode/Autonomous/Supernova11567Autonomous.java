@@ -38,11 +38,9 @@ public class Supernova11567Autonomous extends LinearOpMode {
         Supernova11567Vufofria.configureLoop(true); //vuforia starts loop
 
         //robot starts vertical to wall- and wobble doesn't in front of the robot (to not disturb)
-        while (startedRight = Boolean.parseBoolean(null)) {
-            double angle = 0;
-            RobotMotorsSetup.moveWheelsManually(angle,0.25);
 
-        }
+        //PID- robot needs to move forward 60 cm, track and set number of rings
+
 
     }
 }
