@@ -25,9 +25,13 @@ public class Supernova11567Autonomous extends LinearOpMode {
                                          1     0
                                          3     2         */
     //robot variables
-    double yDistanceBetweenWheelsCenters = 10; //template
-    double xDistanceBetweenWheelsCenters = 10; //template
+    double yDistanceBetweenWheelsCenters = 10; //template_inch
+    double xDistanceBetweenWheelsCenters = 10; //template_inch
     double robotCircleDiameter = yDistanceBetweenWheelsCenters / (Math.sin(Math.atan(yDistanceBetweenWheelsCenters / xDistanceBetweenWheelsCenters)));
+
+    double wheelsDiameter = 4; //template_inch
+    double ticksPerRotation_wheels = 1000;
+    double inchesPerTick = (wheelsDiameter * Math.PI) / ticksPerRotation_wheels;
 
     //autonomous variables
     boolean startedRight = Boolean.parseBoolean(null);
@@ -49,6 +53,7 @@ public class Supernova11567Autonomous extends LinearOpMode {
         //robot starts vertical to wall- and wobble doesn't in front of the robot (to not disturb)
         //and phone must start vertical                                                                         !!!
 
+        moveWheelsByDistance(0, 60, true);
         //PID- robot needs to move forward 60 inch, track and set number of rings
 
         rotateRobotByAngle(40, true); //robot rotate right and tries to track red alliance wall image
@@ -70,10 +75,12 @@ public class Supernova11567Autonomous extends LinearOpMode {
                                     Supernova11567Vufofria.getBeaconPositionByName("RedAlliance").getTranslation()), true); //align robot to be vertical to the wall
 
                     while (Supernova11567Vufofria.getBeaconPositionByName("RedAlliance") == null) { //robot moves left until track image
-                        moveWheelsManually(-90, 0.2);
+                        moveWheelsManually(-90, 0.5);
                     }
 
-                    //      PID_moveLeft( 0.375-Supernova11567Vufofria.getBeaconPositionByName("RedAlliance").getTranslation().get(0) ) //robot centers itself to the cube (centers the camera...)
+                    moveWheelsByDistance( -90,0.375-Supernova11567Vufofria.getBeaconPositionByName("RedAlliance").getTranslation().get(0), true); //robot centers itself to the cube (centers the camera...)
+
+                    //robot needs to move forward to the cube
             }
 
         } else {//left side full autonomous
@@ -98,15 +105,15 @@ public class Supernova11567Autonomous extends LinearOpMode {
 
         while (pidAutonomous.reachedTarget == false) {
             if (angle >= 0 && angle <= 90) {
-                movedDistance = Math.sqrt(Math.pow(RobotMotorsSetup.w1.getCurrentPosition(), 2) + Math.pow((Math.tan(angle) * RobotMotorsSetup.w1.getCurrentPosition()), 2));
+                movedDistance = Math.sqrt(Math.pow(RobotMotorsSetup.w1.getCurrentPosition()*inchesPerTick, 2) + Math.pow((Math.tan(angle) * RobotMotorsSetup.w1.getCurrentPosition()*inchesPerTick), 2));
             } else if (angle < 0 && angle >= -90) {
-                movedDistance = Math.sqrt(Math.pow(RobotMotorsSetup.w0.getCurrentPosition(), 2) + Math.pow((Math.tan(angle) * RobotMotorsSetup.w0.getCurrentPosition()), 2));
+                movedDistance = Math.sqrt(Math.pow(RobotMotorsSetup.w0.getCurrentPosition()*inchesPerTick, 2) + Math.pow((Math.tan(angle) * RobotMotorsSetup.w0.getCurrentPosition()*inchesPerTick), 2));
             }
             else if (angle < -90 && angle > -180) {
-                movedDistance = Math.sqrt(Math.pow(-RobotMotorsSetup.w1.getCurrentPosition(), 2) + Math.pow((Math.tan(angle) * -RobotMotorsSetup.w1.getCurrentPosition()), 2));
+                movedDistance = Math.sqrt(Math.pow(-RobotMotorsSetup.w1.getCurrentPosition()*inchesPerTick, 2) + Math.pow((Math.tan(angle) * -RobotMotorsSetup.w1.getCurrentPosition()*inchesPerTick), 2));
             }
             else if (angle > 90 && angle <= 180) {
-                movedDistance = Math.sqrt(Math.pow(-RobotMotorsSetup.w0.getCurrentPosition(), 2) + Math.pow((Math.tan(angle) * -RobotMotorsSetup.w0.getCurrentPosition()), 2));
+                movedDistance = Math.sqrt(Math.pow(-RobotMotorsSetup.w0.getCurrentPosition()*inchesPerTick, 2) + Math.pow((Math.tan(angle) * -RobotMotorsSetup.w0.getCurrentPosition()*inchesPerTick), 2));
             }
 
             RobotMotorsSetup.w0.setPower((-RobotMotorsSetup.getJoystickYValue(angle) - RobotMotorsSetup.getJoystickXValue(angle)) * pidAutonomous.PID_calculate(movedDistance, runtime.time()));
