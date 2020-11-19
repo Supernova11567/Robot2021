@@ -81,13 +81,13 @@ public class Supernova11567Autonomous extends LinearOpMode {
         }
     }
 
-    public void moveWheelsByDistance(double distanceToMove, double angle) {
+    public void moveWheelsByDistance(double angle, double distanceToMove, boolean stopMovementAtEnd) {
         pidAutonomous.resetAllCalculations();
         RobotMotorsSetup.w0.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         RobotMotorsSetup.w1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         RobotMotorsSetup.w2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         RobotMotorsSetup.w3.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        
+
         RobotMotorsSetup.w0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         RobotMotorsSetup.w1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         RobotMotorsSetup.w2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -95,11 +95,18 @@ public class Supernova11567Autonomous extends LinearOpMode {
 
         pidAutonomous.PID_start(0, runtime.time(), distanceToMove, 1);
         double movedDistance = 0;
+
         while (pidAutonomous.reachedTarget == false) {
             if (angle >= 0 && angle <= 90) {
                 movedDistance = Math.sqrt(Math.pow(RobotMotorsSetup.w1.getCurrentPosition(), 2) + Math.pow((Math.tan(angle) * RobotMotorsSetup.w1.getCurrentPosition()), 2));
             } else if (angle < 0 && angle >= -90) {
                 movedDistance = Math.sqrt(Math.pow(RobotMotorsSetup.w0.getCurrentPosition(), 2) + Math.pow((Math.tan(angle) * RobotMotorsSetup.w0.getCurrentPosition()), 2));
+            }
+            else if (angle < -90 && angle > -180) {
+                movedDistance = Math.sqrt(Math.pow(-RobotMotorsSetup.w1.getCurrentPosition(), 2) + Math.pow((Math.tan(angle) * -RobotMotorsSetup.w1.getCurrentPosition()), 2));
+            }
+            else if (angle > 90 && angle <= 180) {
+                movedDistance = Math.sqrt(Math.pow(-RobotMotorsSetup.w0.getCurrentPosition(), 2) + Math.pow((Math.tan(angle) * -RobotMotorsSetup.w0.getCurrentPosition()), 2));
             }
 
             RobotMotorsSetup.w0.setPower((-RobotMotorsSetup.getJoystickYValue(angle) - RobotMotorsSetup.getJoystickXValue(angle)) * pidAutonomous.PID_calculate(movedDistance, runtime.time()));
@@ -108,6 +115,9 @@ public class Supernova11567Autonomous extends LinearOpMode {
             RobotMotorsSetup.w3.setPower(-(RobotMotorsSetup.getJoystickYValue(angle) + RobotMotorsSetup.getJoystickXValue(angle)) * pidAutonomous.PID_calculate(movedDistance, runtime.time()));
         }
 
+        if (stopMovementAtEnd) {
+            RobotMotorsSetup.stopAllMovement();
+        }
     }
 
     public void moveWheelsManually(double angle, double speed) {
@@ -128,7 +138,10 @@ public class Supernova11567Autonomous extends LinearOpMode {
             RobotMotorsSetup.w2.setPower(pidAutonomous.PID_calculate(RobotMotorsSetup.w0.getCurrentPosition(), runtime.time()));
             RobotMotorsSetup.w3.setPower(pidAutonomous.PID_calculate(RobotMotorsSetup.w0.getCurrentPosition(), runtime.time()));
         }
-        RobotMotorsSetup.stopAllMovement();
+
+        if (stopMovementAtEnd) {
+            RobotMotorsSetup.stopAllMovement();
+        }
     }
 
     public void rotateRobotManually(boolean clockwise, double speed) {
