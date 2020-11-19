@@ -31,7 +31,7 @@ public class Supernova11567Autonomous extends LinearOpMode {
     double robotCircleDiameter = yDistanceBetweenWheelsCenters / (Math.sin(Math.atan(yDistanceBetweenWheelsCenters / xDistanceBetweenWheelsCenters)));
 
     double wheelsDiameter = 4; //template_inch
-    double ticksPerRotation_wheels = 1000;
+    double ticksPerRotation_wheels = 1000; //template
     double inchesPerTick = (wheelsDiameter * Math.PI) / ticksPerRotation_wheels;
 
     //autonomous variables
