@@ -79,7 +79,7 @@ public class Supernova11567Autonomous extends LinearOpMode {
                         moveWheelsManually(-90, 0.5);
                     }
 
-                    moveWheelsByDistance( -90,0.375-Supernova11567Vufofria.getBeaconPositionByName("RedAlliance").getTranslation().get(0), true); //robot centers itself to the cube (centers the camera...)
+                    moveWheelsByDistance(-90, 0.375 - Supernova11567Vufofria.getBeaconPositionByName("RedAlliance").getTranslation().get(0), true); //robot centers itself to the cube (centers the camera...)
 
                     pidAutonomous.resetAllCalculations();
                     pidAutonomous.PID_start(RobotMotorsSetup.w0.getCurrentPosition(), runtime.time(),
@@ -114,15 +114,13 @@ public class Supernova11567Autonomous extends LinearOpMode {
 
         while (pidAutonomous.reachedTarget == false) {
             if (angle >= 0 && angle <= 90) {
-                movedDistance = Math.sqrt(Math.pow(RobotMotorsSetup.w1.getCurrentPosition()*inchesPerTick, 2) + Math.pow((Math.tan(angle) * RobotMotorsSetup.w1.getCurrentPosition()*inchesPerTick), 2));
+                movedDistance = (Math.abs(RobotMotorsSetup.w1.getCurrentPosition()) * inchesPerTick) / Math.cos(angle);
             } else if (angle < 0 && angle >= -90) {
-                movedDistance = Math.sqrt(Math.pow(RobotMotorsSetup.w0.getCurrentPosition()*inchesPerTick, 2) + Math.pow((Math.tan(angle) * RobotMotorsSetup.w0.getCurrentPosition()*inchesPerTick), 2));
-            }
-            else if (angle < -90 && angle > -180) {
-                movedDistance = Math.sqrt(Math.pow(-RobotMotorsSetup.w1.getCurrentPosition()*inchesPerTick, 2) + Math.pow((Math.tan(angle) * -RobotMotorsSetup.w1.getCurrentPosition()*inchesPerTick), 2));
-            }
-            else if (angle > 90 && angle <= 180) {
-                movedDistance = Math.sqrt(Math.pow(-RobotMotorsSetup.w0.getCurrentPosition()*inchesPerTick, 2) + Math.pow((Math.tan(angle) * -RobotMotorsSetup.w0.getCurrentPosition()*inchesPerTick), 2));
+                movedDistance = (Math.abs(RobotMotorsSetup.w0.getCurrentPosition()) * inchesPerTick) / Math.cos(angle);
+            } else if (angle < -90 && angle > -180) {
+                movedDistance = (Math.abs(RobotMotorsSetup.w1.getCurrentPosition()) * inchesPerTick) / Math.cos(angle);
+            } else if (angle > 90 && angle <= 180) {
+                movedDistance = (Math.abs(RobotMotorsSetup.w0.getCurrentPosition()) * inchesPerTick) / Math.cos(angle);
             }
 
             RobotMotorsSetup.w0.setPower((-RobotMotorsSetup.getJoystickYValue(angle) - RobotMotorsSetup.getJoystickXValue(angle)) * pidAutonomous.PID_calculate(movedDistance, runtime.time()));
