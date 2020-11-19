@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
@@ -80,15 +81,31 @@ public class Supernova11567Autonomous extends LinearOpMode {
         }
     }
 
-    public void moveWheelsByDistance (double distanceToMove, double angle) {
+    public void moveWheelsByDistance(double distanceToMove, double angle) {
         pidAutonomous.resetAllCalculations();
-        pidAutonomous.PID_start(RobotMotorsSetup.w0.getCurrentPosition(), runtime.time(), distanceToMove, 1);
+        RobotMotorsSetup.w0.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        RobotMotorsSetup.w1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        RobotMotorsSetup.w2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        RobotMotorsSetup.w3.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        
+        RobotMotorsSetup.w0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        RobotMotorsSetup.w1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        RobotMotorsSetup.w2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        RobotMotorsSetup.w3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        pidAutonomous.PID_start(0, runtime.time(), distanceToMove, 1);
+        double movedDistance = 0;
         while (pidAutonomous.reachedTarget == false) {
-            RobotMotorsSetup.w0.setPower((-RobotMotorsSetup.getJoystickYValue(angle) - RobotMotorsSetup.getJoystickXValue(angle)) * pidAutonomous.PID_calculate(/* needs to give moved distance considered angle */) );
-            RobotMotorsSetup.w1.setPower(-(RobotMotorsSetup.getJoystickYValue(angle) - RobotMotorsSetup.getJoystickXValue(angle)) * pidAutonomous.PID_calculate(/* needs to give moved distance considered angle */) );
-            RobotMotorsSetup.w2.setPower((-RobotMotorsSetup.getJoystickYValue(angle) + RobotMotorsSetup.getJoystickXValue(angle)) * pidAutonomous.PID_calculate(/* needs to give moved distance considered angle */) );
-            RobotMotorsSetup.w3.setPower(-(RobotMotorsSetup.getJoystickYValue(angle) + RobotMotorsSetup.getJoystickXValue(angle)) * pidAutonomous.PID_calculate(/* needs to give moved distance considered angle */) );
+            if (angle >= 0 && angle <= 90) {
+                movedDistance = Math.sqrt(Math.pow(RobotMotorsSetup.w1.getCurrentPosition(), 2) + Math.pow((Math.tan(angle) * RobotMotorsSetup.w1.getCurrentPosition()), 2));
+            } else if (angle < 0 && angle >= -90) {
+                movedDistance = Math.sqrt(Math.pow(RobotMotorsSetup.w0.getCurrentPosition(), 2) + Math.pow((Math.tan(angle) * RobotMotorsSetup.w0.getCurrentPosition()), 2));
+            }
+
+            RobotMotorsSetup.w0.setPower((-RobotMotorsSetup.getJoystickYValue(angle) - RobotMotorsSetup.getJoystickXValue(angle)) * pidAutonomous.PID_calculate(movedDistance, runtime.time()));
+            RobotMotorsSetup.w1.setPower(-(RobotMotorsSetup.getJoystickYValue(angle) - RobotMotorsSetup.getJoystickXValue(angle)) * pidAutonomous.PID_calculate(movedDistance, runtime.time()));
+            RobotMotorsSetup.w2.setPower((-RobotMotorsSetup.getJoystickYValue(angle) + RobotMotorsSetup.getJoystickXValue(angle)) * pidAutonomous.PID_calculate(movedDistance, runtime.time()));
+            RobotMotorsSetup.w3.setPower(-(RobotMotorsSetup.getJoystickYValue(angle) + RobotMotorsSetup.getJoystickXValue(angle)) * pidAutonomous.PID_calculate(movedDistance, runtime.time()));
         }
 
     }
