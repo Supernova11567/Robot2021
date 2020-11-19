@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.teamcode.RobotMotorsSetup;
@@ -17,7 +18,7 @@ public class Supernova11567Autonomous extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
 
     private org.firstinspires.ftc.teamcode.RobotMotorsSetup RobotMotorsSetup = new RobotMotorsSetup(hardwareMap, gamepad1, gamepad2);
-    private RobotSensorsSetup RobotSensorsSetup = new RobotSensorsSetup(hardwareMap, gamepad1, gamepad2);
+    private RobotSensorsSetup RobotSensorsSetup = new RobotSensorsSetup(hardwareMap);
     private PIDautonomous pidAutonomous = new PIDautonomous(1, 1, 1);
     private Supernova11567Vuforia Supernova11567Vufofria = new Supernova11567Vuforia(VuforiaLocalizer.CameraDirection.BACK, VuforiaLocalizer.Parameters.CameraMonitorFeedback.AXES, telemetry);
     /* motors configuration on robot:
@@ -80,7 +81,15 @@ public class Supernova11567Autonomous extends LinearOpMode {
 
                     moveWheelsByDistance( -90,0.375-Supernova11567Vufofria.getBeaconPositionByName("RedAlliance").getTranslation().get(0), true); //robot centers itself to the cube (centers the camera...)
 
-                    //robot needs to move forward to the cube
+                    pidAutonomous.resetAllCalculations();
+                    pidAutonomous.PID_start(RobotMotorsSetup.w0.getCurrentPosition(), runtime.time(),
+                            RobotSensorsSetup.distanceSensor.getDistance(DistanceUnit.INCH), 1);
+                    while (pidAutonomous.reachedTarget == false) {
+                        pidAutonomous.PID_calculate_byError(RobotSensorsSetup.distanceSensor.getDistance(DistanceUnit.INCH), runtime.time());
+                    }
+                    RobotMotorsSetup.stopAllMovement();
+
+                    //puts wobble
             }
 
         } else {//left side full autonomous

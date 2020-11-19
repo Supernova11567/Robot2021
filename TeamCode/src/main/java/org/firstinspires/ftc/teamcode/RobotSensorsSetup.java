@@ -12,15 +12,11 @@ public class RobotSensorsSetup {
 
     /* local OpMode members. */
     com.qualcomm.robotcore.hardware.HardwareMap HardwareMap = null;
-    private Gamepad gamepad1 = null;
-    private Gamepad gamepad2 = null;
-    private ElapsedTime period = new ElapsedTime();
+    private ElapsedTime runtime = new ElapsedTime();
 
     /* Constructor */
-    public RobotSensorsSetup(HardwareMap hwMap, Gamepad gamepad1, Gamepad gamepad2) {
+    public RobotSensorsSetup(HardwareMap hwMap) {
         HardwareMap = hwMap;
-        this.gamepad1 = gamepad1;
-        this.gamepad2 = gamepad2;
     }
 
     /* Initialize standard Hardware interfaces */

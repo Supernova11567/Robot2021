@@ -70,4 +70,26 @@ public class PIDautonomous {
 
         return finalOutput;
     }
+
+    public double PID_calculate_byError (double error, double currentTime) {
+        //P
+        this.error = error;
+
+        if (error < maximumErrorFromTarget) {
+            reachedTarget = true;
+        }
+
+        //I
+        integral += (distanceToMove - startPosition - error) * (currentTime - lastTime);
+
+        //D
+        derivative = ( lastError - error ) / ( currentTime - lastTime );
+
+        double finalOutput = pidCoefficients.p * error + pidCoefficients.i * integral + pidCoefficients.d * derivative;
+
+        lastError = error;
+        lastTime = currentTime;
+
+        return finalOutput;
+    }
 }

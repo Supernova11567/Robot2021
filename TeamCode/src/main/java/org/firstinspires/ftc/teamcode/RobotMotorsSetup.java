@@ -19,7 +19,7 @@ public class RobotMotorsSetup {
     HardwareMap HardwareMap = null;
     private Gamepad gamepad1 = null;
     private Gamepad gamepad2 = null;
-    private ElapsedTime period = new ElapsedTime();
+    private ElapsedTime runtime = new ElapsedTime();
 
     /* Constructor */
     public RobotMotorsSetup(HardwareMap hwMap, Gamepad gamepad1, Gamepad gamepad2) {
