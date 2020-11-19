@@ -79,7 +79,7 @@ public class Supernova11567Autonomous extends LinearOpMode {
                         moveWheelsManually(-90, 0.5);
                     }
 
-                    moveWheelsByDistance(-90, 0.375 - Supernova11567Vufofria.getBeaconPositionByName("RedAlliance").getTranslation().get(0), true); //robot centers itself to the cube (centers the camera...)
+                    moveWheelsByDistance(-90, 6 - 5.875 - Supernova11567Vufofria.getBeaconPositionByName("RedAlliance").getTranslation().get(0), true); //robot centers itself to the cube (centers the camera...)
 
                     pidAutonomous.resetAllCalculations();
                     pidAutonomous.PID_start(RobotMotorsSetup.w0.getCurrentPosition(), runtime.time(),
