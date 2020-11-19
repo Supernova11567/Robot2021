@@ -18,6 +18,8 @@ public class PIDautonomous {
     double lastError;
     double lastTime;
 
+    double maximumErrorFromTarget;
+    boolean reachedTarget;
 
     /* constructor */
     public PIDautonomous (double kp, double ki, double kd) {
@@ -35,20 +37,50 @@ public class PIDautonomous {
 
         lastError = 0;
         lastTime = 0;
+
+        maximumErrorFromTarget = 0;
+        reachedTarget = false;
     }
 
-    public void PID_start (double startPosition, double starTime, double DistanceToMove) {
+    public void PID_start (double startPosition, double starTime, double DistanceToMove, double maximumErrorFromTarget) {
         this.startPosition = startPosition;
         this.startTime = starTime;
         this.distanceToMove = distanceToMove;
+        this.maximumErrorFromTarget = maximumErrorFromTarget;
     }
 
     public double PID_calculate (double currentPosition, double currentTime) {
         //P
         error = distanceToMove - (currentPosition - startPosition);
 
+        if (error < maximumErrorFromTarget) {
+            reachedTarget = true;
+        }
+
         //I
         integral += currentPosition * (currentTime - lastTime);
+
+        //D
+        derivative = ( lastError - error ) / ( currentTime - lastTime );
+
+        double finalOutput = pidCoefficients.p * error + pidCoefficients.i * integral + pidCoefficients.d * derivative;
+
+        lastError = error;
+        lastTime = currentTime;
+
+        return finalOutput;
+    }
+
+    public double PID_calculate_byError (double error, double currentTime) {
+        //P
+        this.error = error;
+
+        if (error < maximumErrorFromTarget) {
+            reachedTarget = true;
+        }
+
+        //I
+        integral += (distanceToMove - startPosition - error) * (currentTime - lastTime);
 
         //D
         derivative = ( lastError - error ) / ( currentTime - lastTime );

@@ -19,7 +19,7 @@ public class RobotMotorsSetup {
     HardwareMap HardwareMap = null;
     private Gamepad gamepad1 = null;
     private Gamepad gamepad2 = null;
-    private ElapsedTime period = new ElapsedTime();
+    private ElapsedTime runtime = new ElapsedTime();
 
     /* Constructor */
     public RobotMotorsSetup(HardwareMap hwMap, Gamepad gamepad1, Gamepad gamepad2) {
@@ -68,39 +68,6 @@ public class RobotMotorsSetup {
 
     }
 
-    public void moveWheelsMecanumByJoysticks(double rightBrake, double leftBrake) {
-        w0.setPower((-gamepad1.right_stick_y - gamepad1.right_stick_x) * rightBrake);
-        w1.setPower(-(gamepad1.left_stick_y - gamepad1.left_stick_x) * leftBrake);
-        w2.setPower((-gamepad1.right_stick_y + gamepad1.right_stick_x) * rightBrake);
-        w3.setPower(-(gamepad1.left_stick_y + gamepad1.left_stick_x) * leftBrake);
-    }
-
-    public void moveWheelsManually(double angle, double speed) {
-        w0.setPower((-getJoystickYValue(angle) - getJoystickXValue(angle)) * speed);
-        w1.setPower(-(getJoystickYValue(angle) - getJoystickXValue(angle)) * speed);
-        w2.setPower((-getJoystickYValue(angle) + getJoystickXValue(angle)) * speed);
-        w3.setPower(-(getJoystickYValue(angle) + getJoystickXValue(angle)) * speed);
-    }
-
-    public void rotateRobotByAngle(double angles) {
-
-    }
-
-    public void rotateRobotManually(boolean clockwise, double speed) {
-        if (clockwise) {
-            w0.setPower(-speed);
-            w1.setPower(-speed);
-            w2.setPower(-speed);
-            w3.setPower(-speed);
-        }
-        else {
-            w0.setPower(speed);
-            w1.setPower(speed);
-            w2.setPower(speed);
-            w3.setPower(speed);
-        }
-    }
-
     public double getJoystickXValue(double angle) {
         double newAngleX = angle;
         double xValue;
@@ -120,7 +87,6 @@ public class RobotMotorsSetup {
         }
     }
 
-
     public double getJoystickYValue(double angle) {
         double newAngleY = angle;
         double yValue;
@@ -128,6 +94,13 @@ public class RobotMotorsSetup {
         yValue = (Math.abs(newAngleY) / 90) - 1;
 
         return yValue;
+    }
+
+    public void moveWheelsMecanumByJoysticks(double rightBrake, double leftBrake) {
+        w0.setPower((-gamepad1.right_stick_y - gamepad1.right_stick_x) * rightBrake);
+        w1.setPower(-(gamepad1.left_stick_y - gamepad1.left_stick_x) * leftBrake);
+        w2.setPower((-gamepad1.right_stick_y + gamepad1.right_stick_x) * rightBrake);
+        w3.setPower(-(gamepad1.left_stick_y + gamepad1.left_stick_x) * leftBrake);
     }
 
     public void moveIntake(double speed) {
