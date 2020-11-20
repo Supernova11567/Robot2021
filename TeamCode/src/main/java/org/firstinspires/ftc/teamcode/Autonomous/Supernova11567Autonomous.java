@@ -36,7 +36,7 @@ public class Supernova11567Autonomous extends LinearOpMode {
 
     //autonomous variables
     boolean startedRight = Boolean.parseBoolean(null);
-    int numberOfStartedRings;
+    int numberOfStartedRings = 0;
 
     @Override
     public void runOpMode() {
@@ -54,18 +54,23 @@ public class Supernova11567Autonomous extends LinearOpMode {
         //robot starts vertical to wall- and wobble doesn't in front of the robot (to not disturb)
         //and phone must start vertical                                                                         !!!
 
-        moveWheelsByDistance(0, 60, true);
-        //PID- robot needs to move forward 60 inch, track and set number of rings
-
-        rotateRobotByAngle(40, true); //robot rotate right and tries to track red alliance wall image
-
-        if (((VuforiaTrackableDefaultListener) Supernova11567Vufofria.beacons.get(2).getListener()).getPose() == null) {
-            //didn't track right side target image
-            startedRight = false;
-        } else {
-            startedRight = true;
+        moveWheelsByDistance(0, 60, true); //moves 5 feet
+        while (pidAutonomous.reachedTarget == false) {
+            //if tracks rings, set numberOfStartedRings
         }
 
+        rotateRobotByAngle(40, true); //robot rotate right and tries to track red alliance wall image
+        while (pidAutonomous.reachedTarget == false) {
+            //waits
+        }
+
+        if (((VuforiaTrackableDefaultListener) Supernova11567Vufofria.beacons.get(2).getListener()).getPose() == null) {
+            //didn't track right side wall target image
+            startedRight = false;
+        } else {
+            //tracked right side wall image
+            startedRight = true;
+        }
 
         if (startedRight) { //right side full autonomous
 
@@ -79,8 +84,11 @@ public class Supernova11567Autonomous extends LinearOpMode {
                         moveWheelsManually(-90, 0.5);
                     }
 
-                    moveWheelsByDistance(-90, 6 - 5.875 - Supernova11567Vufofria.getBeaconPositionByName("RedAlliance").getTranslation().get(0), true); //robot centers itself to the cube (centers the camera...)
-
+                    moveWheelsByDistance(-90, 0.375 - Supernova11567Vufofria.getBeaconPositionByName("RedAlliance").getTranslation().get(0) , true); //robot centers itself to the cube middle of the cube(centers the camera...)
+                    while (pidAutonomous.reachedTarget == false) {
+                        //waits
+                    }
+                    
                     pidAutonomous.resetAllCalculations();
                     pidAutonomous.PID_start(RobotMotorsSetup.w0.getCurrentPosition(), runtime.time(),
                             RobotSensorsSetup.distanceSensor.getDistance(DistanceUnit.INCH), 1);
