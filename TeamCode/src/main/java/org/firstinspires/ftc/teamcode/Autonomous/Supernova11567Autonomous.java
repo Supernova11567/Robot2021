@@ -84,11 +84,11 @@ public class Supernova11567Autonomous extends LinearOpMode {
                         moveWheelsManually(-90, 0.5);
                     }
 
-                    moveWheelsByDistance(-90, 0.375 - Supernova11567Vufofria.getBeaconPositionByName("RedAlliance").getTranslation().get(0) , true); //robot centers itself to the cube middle of the cube(centers the camera...)
+                    moveWheelsByDistance(-90, 0.375 - Supernova11567Vufofria.getBeaconPositionByName("RedAlliance").getTranslation().get(0), true); //robot centers itself to the cube middle of the cube(centers the camera...)
                     while (pidAutonomous.reachedTarget == false) {
                         //waits
                     }
-                    
+
                     pidAutonomous.resetAllCalculations();
                     pidAutonomous.PID_start(RobotMotorsSetup.w0.getCurrentPosition(), runtime.time(),
                             RobotSensorsSetup.distanceSensor.getDistance(DistanceUnit.INCH), 1);
@@ -135,6 +135,7 @@ public class Supernova11567Autonomous extends LinearOpMode {
             RobotMotorsSetup.w1.setPower(-(RobotMotorsSetup.getJoystickYValue(angle) - RobotMotorsSetup.getJoystickXValue(angle)) * pidAutonomous.PID_calculate(movedDistance, runtime.time()));
             RobotMotorsSetup.w2.setPower((-RobotMotorsSetup.getJoystickYValue(angle) + RobotMotorsSetup.getJoystickXValue(angle)) * pidAutonomous.PID_calculate(movedDistance, runtime.time()));
             RobotMotorsSetup.w3.setPower(-(RobotMotorsSetup.getJoystickYValue(angle) + RobotMotorsSetup.getJoystickXValue(angle)) * pidAutonomous.PID_calculate(movedDistance, runtime.time()));
+            //position of robot in Y axis->     RobotMotorsSetup.w1.getCurrentPosition()) * inchesPerTick   =   ( ± movedDistance)* (Math.cos( angle ) )
         }
 
         if (stopMovementAtEnd) {
@@ -177,6 +178,35 @@ public class Supernova11567Autonomous extends LinearOpMode {
             RobotMotorsSetup.w1.setPower(speed);
             RobotMotorsSetup.w2.setPower(speed);
             RobotMotorsSetup.w3.setPower(speed);
+        }
+    }
+
+    public void moveRobotAdvanced (double angleToMove, double distanceToMoveInAngle, double angleToRotate, boolean stopMovementAtEnd) {
+        pidAutonomous.resetAllCalculations();
+        RobotMotorsSetup.w0.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        RobotMotorsSetup.w1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        RobotMotorsSetup.w2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        RobotMotorsSetup.w3.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        RobotMotorsSetup.w0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        RobotMotorsSetup.w1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        RobotMotorsSetup.w2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        RobotMotorsSetup.w3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        PIDautonomous pid_moving = new PIDautonomous(1,1,1); //moving pid
+        PIDautonomous pid_turning = new PIDautonomous(1,1,1); //turning pid
+
+        double distanceToRotate = (robotCircleDiameter * Math.PI) * (angleToRotate / 360);
+
+        pid_moving.PID_start(0, runtime.time(), distanceToMoveInAngle, 1);
+        pid_turning.PID_start(0, runtime.time(), distanceToRotate, 1);
+
+        while (pid_moving.reachedTarget == false && pid_turning.reachedTarget == false) {
+
+        }
+
+        if (stopMovementAtEnd) {
+            RobotMotorsSetup.stopAllMovement();
         }
     }
 
