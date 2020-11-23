@@ -9,7 +9,7 @@ public class PIDautonomous {
     double startPosition = 0;
     double startTime = 0;
     double distanceToMove = 0;
-
+    
     //PID formula variables
     double error;
     double integral;
@@ -42,9 +42,9 @@ public class PIDautonomous {
         reachedTarget = false;
     }
 
-    public void PID_start (double startPosition, double starTime, double DistanceToMove, double maximumErrorFromTarget) {
+    public void PID_start (double startPosition, double startTime, double DistanceToMove, double maximumErrorFromTarget) {
         this.startPosition = startPosition;
-        this.startTime = starTime;
+        this.startTime = startTime;
         this.distanceToMove = distanceToMove;
         this.maximumErrorFromTarget = maximumErrorFromTarget;
     }

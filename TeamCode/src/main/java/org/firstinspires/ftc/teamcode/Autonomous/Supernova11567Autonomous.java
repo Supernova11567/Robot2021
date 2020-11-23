@@ -90,7 +90,7 @@ public class Supernova11567Autonomous extends LinearOpMode {
                     }
 
                     pidAutonomous.resetAllCalculations();
-                    pidAutonomous.PID_start(RobotMotorsSetup.w0.getCurrentPosition(), runtime.time(),
+                    pidAutonomous.PID_start(RobotMotorsSetup.w0.getCurrentPosition() * inchesPerTick, runtime.time(),
                             RobotSensorsSetup.distanceSensor.getDistance(DistanceUnit.INCH), 1);
                     while (pidAutonomous.reachedTarget == false) {
                         pidAutonomous.PID_calculate_byError(RobotSensorsSetup.distanceSensor.getDistance(DistanceUnit.INCH), runtime.time());
