@@ -90,48 +90,28 @@ public class Supernova11567Autonomous extends LinearOpMode {
                         //waits
                     }
 
-                    pidAutonomous.resetAllCalculations();
-                    pidAutonomous.PID_start(RobotMotorsSetup.w0.getCurrentPosition() * inchesPerTick, runtime.time(),
-                            RobotSensorsSetup.distanceSensor.getDistance(DistanceUnit.INCH), 1);
-                    while (pidAutonomous.reachedTarget == false) {
-                        pidAutonomous.PID_calculate_byError(RobotSensorsSetup.distanceSensor.getDistance(DistanceUnit.INCH), runtime.time());
-                    }
-                    RobotMotorsSetup.stopAllMovement();
-
-                    //puts wobble
-
                 case 1:
                     moveWheelsByDistance(-90, 2 + 0.375 - Supernova11567Vufofria.getBeaconPositionByName("RedAlliance").getTranslation().get(0), true); //robot centers itself to the cube middle of the cube(centers the camera...)
                     while (pidAutonomous.reachedTarget == false) {
                         //waits
                     }
 
-                    pidAutonomous.resetAllCalculations();
-                    pidAutonomous.PID_start(RobotMotorsSetup.w0.getCurrentPosition() * inchesPerTick, runtime.time(),
-                            RobotSensorsSetup.distanceSensor.getDistance(DistanceUnit.INCH), 1);
-                    while (pidAutonomous.reachedTarget == false) {
-                        pidAutonomous.PID_calculate_byError(RobotSensorsSetup.distanceSensor.getDistance(DistanceUnit.INCH), runtime.time());
-                    }
-                    RobotMotorsSetup.stopAllMovement();
-
-                    //puts wobble
                 case 4:
                     moveWheelsByDistance(-90, 2 + 2 + 0.375 - Supernova11567Vufofria.getBeaconPositionByName("RedAlliance").getTranslation().get(0), true); //robot centers itself to the cube middle of the cube(centers the camera...)
                     while (pidAutonomous.reachedTarget == false) {
                         //waits
                     }
-
-                    pidAutonomous.resetAllCalculations();
-                    pidAutonomous.PID_start(RobotMotorsSetup.w0.getCurrentPosition() * inchesPerTick, runtime.time(),
-                            RobotSensorsSetup.distanceSensor.getDistance(DistanceUnit.INCH), 1);
-                    while (pidAutonomous.reachedTarget == false) {
-                        pidAutonomous.PID_calculate_byError(RobotSensorsSetup.distanceSensor.getDistance(DistanceUnit.INCH), runtime.time());
-                    }
-                    RobotMotorsSetup.stopAllMovement();
-
-                    //puts wobble
-
             }
+
+            pidAutonomous.resetAllCalculations();
+            pidAutonomous.PID_start(RobotMotorsSetup.w0.getCurrentPosition() * inchesPerTick, runtime.time(),
+                    RobotSensorsSetup.distanceSensor.getDistance(DistanceUnit.INCH), 1);
+            while (pidAutonomous.reachedTarget == false) {
+                pidAutonomous.PID_calculate_byError(RobotSensorsSetup.distanceSensor.getDistance(DistanceUnit.INCH), runtime.time());
+            }
+            RobotMotorsSetup.stopAllMovement();
+
+            //puts wobble
 
         } else {//left side full autonomous
 
@@ -154,31 +134,11 @@ public class Supernova11567Autonomous extends LinearOpMode {
                         //waits
                     }
 
-                    pidAutonomous.resetAllCalculations();
-                    pidAutonomous.PID_start(RobotMotorsSetup.w0.getCurrentPosition() * inchesPerTick, runtime.time(),
-                            RobotSensorsSetup.distanceSensor.getDistance(DistanceUnit.INCH), 1);
-                    while (pidAutonomous.reachedTarget == false) {
-                        pidAutonomous.PID_calculate_byError(RobotSensorsSetup.distanceSensor.getDistance(DistanceUnit.INCH), runtime.time());
-                    }
-                    RobotMotorsSetup.stopAllMovement();
-
-                    //puts wobble
-
                 case 1:
                     moveWheelsByDistance(90, 2 + 0.375 - Supernova11567Vufofria.getBeaconPositionByName("BlueAlliance").getTranslation().get(0), true); //robot centers itself to the cube middle of the cube(centers the camera...)
                     while (pidAutonomous.reachedTarget == false) {
                         //waits
                     }
-
-                    pidAutonomous.resetAllCalculations();
-                    pidAutonomous.PID_start(RobotMotorsSetup.w0.getCurrentPosition() * inchesPerTick, runtime.time(),
-                            RobotSensorsSetup.distanceSensor.getDistance(DistanceUnit.INCH), 1);
-                    while (pidAutonomous.reachedTarget == false) {
-                        pidAutonomous.PID_calculate_byError(RobotSensorsSetup.distanceSensor.getDistance(DistanceUnit.INCH), runtime.time());
-                    }
-                    RobotMotorsSetup.stopAllMovement();
-
-                    //puts wobble
 
                 case 4:
                     moveWheelsByDistance(90, 2 + 2 + 0.375 - Supernova11567Vufofria.getBeaconPositionByName("BlueAlliance").getTranslation().get(0), true); //robot centers itself to the cube middle of the cube(centers the camera...)
@@ -186,17 +146,18 @@ public class Supernova11567Autonomous extends LinearOpMode {
                         //waits
                     }
 
-                    pidAutonomous.resetAllCalculations();
-                    pidAutonomous.PID_start(RobotMotorsSetup.w0.getCurrentPosition() * inchesPerTick, runtime.time(),
-                            RobotSensorsSetup.distanceSensor.getDistance(DistanceUnit.INCH), 1);
-                    while (pidAutonomous.reachedTarget == false) {
-                        pidAutonomous.PID_calculate_byError(RobotSensorsSetup.distanceSensor.getDistance(DistanceUnit.INCH), runtime.time());
-                    }
-                    RobotMotorsSetup.stopAllMovement();
-
-                    //puts wobble
-
             }
+
+            pidAutonomous.resetAllCalculations();
+            pidAutonomous.PID_start(RobotMotorsSetup.w0.getCurrentPosition() * inchesPerTick, runtime.time(),
+                    RobotSensorsSetup.distanceSensor.getDistance(DistanceUnit.INCH), 1);
+            while (pidAutonomous.reachedTarget == false) {
+                pidAutonomous.PID_calculate_byError(RobotSensorsSetup.distanceSensor.getDistance(DistanceUnit.INCH), runtime.time());
+            }
+            RobotMotorsSetup.stopAllMovement();
+
+            
+            //puts wobble
         }
     }
 
@@ -277,7 +238,6 @@ public class Supernova11567Autonomous extends LinearOpMode {
     }
 
     public void moveRobotAdvanced(double angleToMove, double distanceToMoveInAngle, double angleToRotate, boolean stopMovementAtEnd) {
-        pidAutonomous.resetAllCalculations();
         RobotMotorsSetup.w0.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         RobotMotorsSetup.w1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         RobotMotorsSetup.w2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -296,7 +256,7 @@ public class Supernova11567Autonomous extends LinearOpMode {
         pid_moving.PID_start(0, runtime.time(), distanceToMoveInAngle, 1);
         pid_turning.PID_start(0, runtime.time(), distanceToRotate, 1);
 
-        while (pid_moving.reachedTarget == false && pid_turning.reachedTarget == false) {
+        while (pid_moving.reachedTarget == false || pid_turning.reachedTarget == false) {
 
         }
 
