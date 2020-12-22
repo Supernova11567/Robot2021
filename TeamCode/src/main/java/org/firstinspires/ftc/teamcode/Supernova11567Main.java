@@ -30,7 +30,6 @@ public class Supernova11567Main extends OpMode {
 
     }
 
-
     @Override
     public void init_loop() {
     }
@@ -48,7 +47,7 @@ public class Supernova11567Main extends OpMode {
         RobotMotorsSetup.loop();
         WheelsSystem.loop();
         IntakeSystem.loop();
-
+        
         //display for drivers
         rightBrakePercentages = (gamepad1.right_trigger / 1) * 100;
         leftBrakePercentages = (gamepad1.left_trigger / 1) * 100;

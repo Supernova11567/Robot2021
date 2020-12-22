@@ -83,21 +83,21 @@ public class Supernova11567Autonomous extends LinearOpMode {
                 moveWheelsManually(-90, 0.5);
             }
 
-            switch (numberOfStartedRings) { //putting wobble at the correct square
+            switch (numberOfStartedRings) { //moving to the correct square
                 case 0:
-                    moveWheelsByDistance(-90, 0.375 - Supernova11567Vufofria.getBeaconPositionByName("RedAlliance").getTranslation().get(0), true); //robot centers itself to the cube middle of the cube(centers the camera...)
+                    moveWheelsByDistance(-90, 1.5 - Supernova11567Vufofria.getBeaconPositionByName("RedAlliance").getTranslation().get(0), true); //robot centers itself to the cube middle of the cube(centers the camera...)
                     while (pidAutonomous.reachedTarget == false) {
                         //waits
                     }
 
                 case 1:
-                    moveWheelsByDistance(-90, 2 + 0.375 - Supernova11567Vufofria.getBeaconPositionByName("RedAlliance").getTranslation().get(0), true); //robot centers itself to the cube middle of the cube(centers the camera...)
+                    moveWheelsByDistance(-90, 24 + 1.5 - Supernova11567Vufofria.getBeaconPositionByName("RedAlliance").getTranslation().get(0), true); //robot centers itself to the cube middle of the cube(centers the camera...)
                     while (pidAutonomous.reachedTarget == false) {
                         //waits
                     }
 
                 case 4:
-                    moveWheelsByDistance(-90, 2 + 2 + 0.375 - Supernova11567Vufofria.getBeaconPositionByName("RedAlliance").getTranslation().get(0), true); //robot centers itself to the cube middle of the cube(centers the camera...)
+                    moveWheelsByDistance(-90, 24 + 24 + 1.5 - Supernova11567Vufofria.getBeaconPositionByName("RedAlliance").getTranslation().get(0), true); //robot centers itself to the cube middle of the cube(centers the camera...)
                     while (pidAutonomous.reachedTarget == false) {
                         //waits
                     }
@@ -113,6 +113,14 @@ public class Supernova11567Autonomous extends LinearOpMode {
 
             //puts wobble
 
+            pidAutonomous.resetAllCalculations();
+            pidAutonomous.PID_start(RobotMotorsSetup.w0.getCurrentPosition() * inchesPerTick, runtime.time(),
+                    - 36 - RobotSensorsSetup.distanceSensor.getDistance(DistanceUnit.INCH), 1);
+            while (pidAutonomous.reachedTarget == false) {
+                pidAutonomous.PID_calculate_byError(- 36 - RobotSensorsSetup.distanceSensor.getDistance(DistanceUnit.INCH), runtime.time());
+            }
+            RobotMotorsSetup.stopAllMovement();
+
         } else {//left side full autonomous
 
             while (Supernova11567Vufofria.getBeaconPositionByName("BlueAlliance") == null) {
@@ -127,21 +135,21 @@ public class Supernova11567Autonomous extends LinearOpMode {
                 moveWheelsManually(90, 0.5);
             }
 
-            switch (numberOfStartedRings) {
+            switch (numberOfStartedRings) { //moving to the correct square
                 case 0:
-                    moveWheelsByDistance(90, 0.375 - Supernova11567Vufofria.getBeaconPositionByName("BlueAlliance").getTranslation().get(0), true); //robot centers itself to the cube middle of the cube(centers the camera...)
+                    moveWheelsByDistance(90, 1.5 - Supernova11567Vufofria.getBeaconPositionByName("BlueAlliance").getTranslation().get(0), true); //robot centers itself to the cube middle of the cube(centers the camera...)
                     while (pidAutonomous.reachedTarget == false) {
                         //waits
                     }
 
                 case 1:
-                    moveWheelsByDistance(90, 2 + 0.375 - Supernova11567Vufofria.getBeaconPositionByName("BlueAlliance").getTranslation().get(0), true); //robot centers itself to the cube middle of the cube(centers the camera...)
+                    moveWheelsByDistance(90, 24 + 1.5 - Supernova11567Vufofria.getBeaconPositionByName("BlueAlliance").getTranslation().get(0), true); //robot centers itself to the cube middle of the cube(centers the camera...)
                     while (pidAutonomous.reachedTarget == false) {
                         //waits
                     }
 
                 case 4:
-                    moveWheelsByDistance(90, 2 + 2 + 0.375 - Supernova11567Vufofria.getBeaconPositionByName("BlueAlliance").getTranslation().get(0), true); //robot centers itself to the cube middle of the cube(centers the camera...)
+                    moveWheelsByDistance(90, 24 + 24 + 1.5 - Supernova11567Vufofria.getBeaconPositionByName("BlueAlliance").getTranslation().get(0), true); //robot centers itself to the cube middle of the cube(centers the camera...)
                     while (pidAutonomous.reachedTarget == false) {
                         //waits
                     }
@@ -156,7 +164,7 @@ public class Supernova11567Autonomous extends LinearOpMode {
             }
             RobotMotorsSetup.stopAllMovement();
 
-            
+
             //puts wobble
         }
     }
