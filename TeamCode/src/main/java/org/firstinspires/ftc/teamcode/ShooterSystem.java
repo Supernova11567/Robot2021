@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Autonomous.Constants;
+import org.firstinspires.ftc.teamcode.Autonomous.PID;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 import static org.firstinspires.ftc.teamcode.Autonomous.Constants.g;
@@ -17,7 +18,7 @@ public class ShooterSystem {
 
     private ElapsedTime runtime = new ElapsedTime();
 
-    public ShooterSystem() {
+    public ShooterSystem(double distance, double height, ShooterSystem shooter) {
 
         //creates the 2 motor required for the shooter
         shootMotor = hardwareMap.get(DcMotor.class, "shoot");
@@ -31,6 +32,10 @@ public class ShooterSystem {
         //resets and starts the timer
         runtime.reset();
         runtime.startTime();
+
+        this.distance = distance;
+        this.height = height;
+        this.shooter = shooter;
     }
 
 
@@ -91,5 +96,30 @@ public class ShooterSystem {
         double angle = Math.atan((2 * h) / d);
 
         return angle;
+    }
+
+    double distance; //distance to the target
+    double height;  //height of the target
+
+    private ShooterSystem shooter;  //creates new shooter object
+
+    private PID pid = new PID(Constants.Shooter.K_P, Constants.Shooter.K_I, Constants.Shooter.K_D); //PID constants
+
+
+    public void init() {
+
+        //uses the shooter class to calculate the velocity required and sets a target speed
+        double V0 = shooter.CalcVelocity(distance, height);
+        pid.setTarget(V0);
+
+    }
+
+    public void loop() {
+        //calculates the force for the motor
+        double force = pid.OutputForce(shooter.getVelocityMotor(), shooter.getDeltaTime());
+
+        shooter.setPower(force);
+
+        shooter.periodic();
     }
 }
