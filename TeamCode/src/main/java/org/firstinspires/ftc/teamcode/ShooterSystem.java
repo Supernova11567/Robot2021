@@ -45,7 +45,7 @@ public class ShooterSystem {
 
         this.gamepad1 = gamepad1;
         this.gamepad2 = gamepad2;
-        
+
         this.RobotMotorsSetup = RobotMotorsSetup;
     }
 
