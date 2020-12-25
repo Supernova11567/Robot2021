@@ -1,15 +1,22 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Autonomous.Constants;
 import org.firstinspires.ftc.teamcode.Autonomous.PID;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 import static org.firstinspires.ftc.teamcode.Autonomous.Constants.g;
 
 public class ShooterSystem {
+
+    private RobotMotorsSetup RobotMotorsSetup = null;
+
+    private Gamepad gamepad1 = null;
+    private Gamepad gamepad2 = null;
 
     private DcMotor shootMotor;  //sets the first Dc motor to a null
 
@@ -18,7 +25,7 @@ public class ShooterSystem {
 
     private ElapsedTime runtime = new ElapsedTime();
 
-    public ShooterSystem(double distance, double height, ShooterSystem shooter) {
+    public ShooterSystem(double distance, double height, RobotMotorsSetup RobotMotorsSetup, Gamepad gamepad1, Gamepad gamepad2) {
 
         //creates the 2 motor required for the shooter
         shootMotor = hardwareMap.get(DcMotor.class, "shoot");
@@ -35,7 +42,11 @@ public class ShooterSystem {
 
         this.distance = distance;
         this.height = height;
-        this.shooter = shooter;
+
+        this.gamepad1 = gamepad1;
+        this.gamepad2 = gamepad2;
+        
+        this.RobotMotorsSetup = RobotMotorsSetup;
     }
 
 
