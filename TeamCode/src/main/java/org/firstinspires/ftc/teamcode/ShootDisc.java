@@ -1,7 +1,10 @@
-package org.firstinspires.ftc.teamcode.Autonomous;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
+import org.firstinspires.ftc.teamcode.Autonomous.Constants;
+import org.firstinspires.ftc.teamcode.Autonomous.PID;
 
 @TeleOp(name="Basic: Iterative OpMode", group="Iterative Opmode")
 
@@ -10,12 +13,12 @@ public class ShootDisc extends OpMode {
     double distance; //distance to the target
     double height;  //height of the target
 
-    private Shooter shooter;  //creates new shooter object
+    private ShooterSystem shooter;  //creates new shooter object
 
     private PID pid = new PID(Constants.Shooter.K_P, Constants.Shooter.K_I, Constants.Shooter.K_D); //PID constants
 
 
-    public ShootDisc(double distance, double height, Shooter shooter) {
+    public ShootDisc(double distance, double height, ShooterSystem shooter) {
 
         this.distance = distance;
         this.height = height;

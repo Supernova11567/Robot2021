@@ -1,12 +1,14 @@
-package org.firstinspires.ftc.teamcode.Autonomous;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.Autonomous.Constants;
+
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 import static org.firstinspires.ftc.teamcode.Autonomous.Constants.g;
 
-public class Shooter {
+public class ShooterSystem {
 
     private DcMotor shootMotor;  //sets the first Dc motor to a null
 
@@ -15,7 +17,7 @@ public class Shooter {
 
     private ElapsedTime runtime = new ElapsedTime();
 
-    public Shooter() {
+    public ShooterSystem() {
 
         //creates the 2 motor required for the shooter
         shootMotor = hardwareMap.get(DcMotor.class, "shoot");
